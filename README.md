@@ -1,3 +1,7 @@
+## ![logo](https://i.imgur.com/cmFjkIE.png)
+
+---
+
 # ai{jungle}: ai-powered debates betting platform (dapp)
 
 ![ai debate platform](https://i.imgur.com/4u1lvQ2.png)
