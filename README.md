@@ -22,7 +22,7 @@
 </div>
 
 <div align="center">
-  <h1>ai{jungle}: ai-powered debates betting platform (dapp)</h1>
+  <h1>AI{jungle}: AI-Powered Debates Betting Platform (dApp)</h1>
 </div>
 
 ![ai debate platform](https://i.imgur.com/4u1lvQ2.png)
