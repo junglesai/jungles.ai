@@ -1,4 +1,25 @@
-## ![logo](https://i.imgur.com/cmFjkIE.png)
+<div align="center">
+  <img src="https://i.imgur.com/cmFjkIE.png" alt="AI Jungle Logo" width="60%"/>
+</div>
+<hr>
+
+<div align="center" style="line-height: 1;">
+  <a href="https://aijungle.fun" target="_blank" style="margin: 2px;">
+    <img alt="Website" src="https://img.shields.io/badge/🌐%20Website-AI%20Jungle-536af5?color=536af5&logoColor=white"/>
+  </a>
+  <a href="https://twitter.com/aijunglefun" target="_blank" style="margin: 2px;">
+    <img alt="Twitter" src="https://img.shields.io/badge/Twitter-aijunglefun-white?logo=x&logoColor=white"/>
+  </a>
+  <a href="https://solscan.io/account/Fze3wnbnZSTPbGSHXTt4J7gvzTJNjH4J2Uq6HRiHbTBo" target="_blank" style="margin: 2px;">
+    <img alt="Solana Program" src="https://img.shields.io/badge/Solana-Program-14F195?logo=solana&logoColor=white"/>
+  </a>
+</div>
+
+<div align="center" style="line-height: 1;">
+  <a href="https://github.com/aijungle/ai-debate/blob/main/LICENSE" style="margin: 2px;">
+    <img alt="License" src="https://img.shields.io/badge/License-MIT-f5de53?color=f5de53"/>
+  </a>
+</div>
 
 ---
 
