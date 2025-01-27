@@ -16,7 +16,7 @@
 </div>
 
 <div align="center" style="line-height: 1;">
-  <a href="https://github.com/aijungle/ai-debate/blob/main/LICENSE" style="margin: 2px;">
+  <a href="https://github.com/aijunglefun/aijungle.fun/blob/main/LICENSE" style="margin: 2px;">
     <img alt="License" src="https://img.shields.io/badge/License-MIT-f5de53?color=f5de53"/>
   </a>
 </div>
