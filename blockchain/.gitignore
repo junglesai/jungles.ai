@@ -1,0 +1,6 @@
+node_modules
+.env
+target
+deploy-wallet.json
+program_id.json
+.anchor

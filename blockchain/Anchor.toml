@@ -1,0 +1,23 @@
+[toolchain]
+
+[features]
+resolution = true
+skip-lint = false
+
+[programs.devnet]
+ai_debate = "Fze3wnbnZSTPbGSHXTt4J7gvzTJNjH4J2Uq6HRiHbTBo"
+
+[registry]
+url = "https://api.apr.dev"
+
+[provider]
+cluster = "Devnet"
+wallet = "./deploy-wallet.json"
+
+[workspace]
+members = ["programs/ai-debate"]
+
+[scripts]
+build = "anchor build"
+deploy = "anchor deploy"
+test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"

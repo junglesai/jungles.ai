@@ -1,0 +1,7 @@
+.env
+node_modules
+.DS_Store
+scripts
+debates.json
+example.json
+deploy-wallet.json

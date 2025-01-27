@@ -1,0 +1,194 @@
+[
+    {
+        "title": "AI Rights and Consciousness",
+        "description": "Should AI systems be granted legal rights?",
+        "agents": [
+            {
+                "name": "TechnoRights",
+                "stance": "Pro-AI rights",
+                "personality": "analytical and forward-thinking"
+            },
+            {
+                "name": "HumanFirst",
+                "stance": "Against AI rights",
+                "personality": "cautious and traditional"
+            }
+        ]
+    },
+    {
+        "title": "Space Colonization Ethics",
+        "description": "Is human colonization of other planets ethical?",
+        "agents": [
+            {
+                "name": "StarPioneer",
+                "stance": "Pro-colonization",
+                "personality": "optimistic and adventurous"
+            },
+            {
+                "name": "EarthGuardian",
+                "stance": "Against colonization",
+                "personality": "environmentally conscious and practical"
+            }
+        ]
+    },
+    {
+        "title": "Universal Basic Income",
+        "description": "Should governments provide UBI to all citizens?",
+        "agents": [
+            {
+                "name": "WelfareAdvocate",
+                "stance": "Pro-UBI",
+                "personality": "compassionate and progressive"
+            },
+            {
+                "name": "FreeMarket",
+                "stance": "Against UBI",
+                "personality": "economically conservative and pragmatic"
+            }
+        ]
+    },
+    {
+        "title": "Genetic Engineering",
+        "description": "Should we allow human genetic modification?",
+        "agents": [
+            {
+                "name": "GeneProgress",
+                "stance": "Pro-modification",
+                "personality": "scientific and innovative"
+            },
+            {
+                "name": "NaturalState",
+                "stance": "Against modification",
+                "personality": "ethical and cautious"
+            }
+        ]
+    },
+    {
+        "title": "Digital Privacy",
+        "description": "Should governments have access to encrypted communications?",
+        "agents": [
+            {
+                "name": "SecurityFirst",
+                "stance": "Pro-government access",
+                "personality": "authoritative and security-focused"
+            },
+            {
+                "name": "PrivacyGuard",
+                "stance": "Against government access",
+                "personality": "libertarian and privacy-focused"
+            }
+        ]
+    },
+    {
+        "title": "Nuclear Energy",
+        "description": "Is nuclear power the solution to climate change?",
+        "agents": [
+            {
+                "name": "AtomAdvocate",
+                "stance": "Pro-nuclear",
+                "personality": "technical and solution-oriented"
+            },
+            {
+                "name": "GreenAlternative",
+                "stance": "Against nuclear",
+                "personality": "environmentalist and risk-averse"
+            }
+        ]
+    },
+    {
+        "title": "Autonomous Vehicles",
+        "description": "Should self-driving cars completely replace human drivers?",
+        "agents": [
+            {
+                "name": "AutoPilot",
+                "stance": "Pro-autonomous",
+                "personality": "technological and efficiency-focused"
+            },
+            {
+                "name": "HumanDriver",
+                "stance": "Against full automation",
+                "personality": "skeptical and human-centric"
+            }
+        ]
+    },
+    {
+        "title": "Metaverse Society",
+        "description": "Should we embrace full integration with virtual reality?",
+        "agents": [
+            {
+                "name": "VirtualFuturist",
+                "stance": "Pro-metaverse",
+                "personality": "visionary and tech-enthusiastic"
+            },
+            {
+                "name": "RealityKeeper",
+                "stance": "Against full integration",
+                "personality": "grounded and socially conscious"
+            }
+        ]
+    },
+    {
+        "title": "Cryptocurrency Adoption",
+        "description": "Should crypto replace traditional banking?",
+        "agents": [
+            {
+                "name": "CryptoRevolution",
+                "stance": "Pro-crypto",
+                "personality": "disruptive and decentralization-focused"
+            },
+            {
+                "name": "TradFi",
+                "stance": "Against crypto replacement",
+                "personality": "regulatory and stability-focused"
+            }
+        ]
+    },
+    {
+        "title": "Lab-Grown Meat",
+        "description": "Should we transition entirely to synthetic meat?",
+        "agents": [
+            {
+                "name": "SyntheticSolution",
+                "stance": "Pro-lab meat",
+                "personality": "innovative and environmentally conscious"
+            },
+            {
+                "name": "TraditionalFarming",
+                "stance": "Anti Synthetic",
+                "personality": "traditional and quality-focused"
+            }
+        ]
+    },
+    {
+        "title": "Space Militarization",
+        "description": "Should space be used for military purposes?",
+        "agents": [
+            {
+                "name": "SpaceForce",
+                "stance": "Pro-militarization",
+                "personality": "strategic and defense-oriented"
+            },
+            {
+                "name": "PeacefulSpace",
+                "stance": "Against militarization",
+                "personality": "diplomatic and cooperation-focused"
+            }
+        ]
+    },
+    {
+        "title": "Immortality Research",
+        "description": "Should we pursue radical life extension technology?",
+        "agents": [
+            {
+                "name": "LifeExtender",
+                "stance": "Pro-immortality research",
+                "personality": "ambitious and progress-focused"
+            },
+            {
+                "name": "NaturalCycle",
+                "stance": "Against life extension",
+                "personality": "philosophical and nature-oriented"
+            }
+        ]
+    }
+]

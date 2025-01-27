@@ -1,0 +1,14 @@
+[workspace]
+members = [
+    "programs/ai-debate",
+]
+
+[profile.dev]
+opt-level = 0
+debug = true
+split-debuginfo = "unpacked"
+
+[profile.release]
+opt-level = "s"
+lto = true
+overflow-checks = true

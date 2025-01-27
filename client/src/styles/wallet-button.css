@@ -1,0 +1,109 @@
+#root .wallet-adapter-button {
+  background-color: transparent !important;
+  border: 1px solid rgb(154, 205, 50, 0.5) !important;
+  color: rgb(154, 205, 50) !important;
+  height: 40px !important;
+  border-radius: 6px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  transition: all 0.2s ease-in-out !important;
+}
+
+#root .wallet-adapter-button:hover {
+  background-color: rgba(154, 205, 50, 0.1) !important;
+  border-color: rgb(154, 205, 50) !important;
+}
+
+#root .wallet-adapter-button:not([disabled]):hover {
+  background-color: rgba(154, 205, 50, 0.1) !important;
+}
+
+#root .wallet-adapter-modal-container {
+  z-index: 1000 !important;
+}
+
+#root .wallet-adapter-modal-wrapper {
+  background-color: #111827 !important;
+  border: 1px solid rgba(154, 205, 50, 0.2) !important;
+  border-radius: 12px !important;
+  max-width: 400px !important;
+  padding: 24px !important;
+}
+
+#root .wallet-adapter-modal-wrapper .wallet-adapter-modal-title{
+  color: rgb(154, 205, 50) !important;
+  font-size: 1.25rem !important;
+  font-weight: 500 !important;
+  margin: 0 0 1.5rem !important;
+}
+
+#root .wallet-adapter-modal-wrapper .wallet-adapter-modal-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+#root .wallet-adapter-modal-wrapper .wallet-adapter-modal-list li {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+#root .wallet-adapter-modal-wrapper .wallet-adapter-modal-list button {
+  background-color: transparent !important;
+  border: 1px solid rgba(154, 205, 50, 0.2) !important;
+  border-radius: 8px !important;
+  color: #fff !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+  font-size: 14px !important;
+  padding: 12px !important;
+  transition: all 0.2s ease-in-out !important;
+}
+
+#root .wallet-adapter-modal-wrapper .wallet-adapter-modal-list button:hover {
+  background-color: rgba(154, 205, 50, 0.1) !important;
+  border-color: rgb(154, 205, 50) !important;
+}
+
+#root .wallet-adapter-modal-wrapper .wallet-adapter-button-start-icon {
+  display: flex !important;
+  align-items: center !important;
+  margin-right: 12px !important;
+}
+
+#root .wallet-adapter-modal-wrapper .wallet-adapter-button-start-icon img {
+  width: 28px !important;
+  height: 28px !important;
+}
+
+#root .wallet-adapter-modal-wrapper .wallet-adapter-modal-button-close {
+  background-color: rgba(154, 205, 50, 0.1) !important;
+  border: none !important;
+  border-radius: 50% !important;
+  color: rgb(154, 205, 50) !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: absolute !important;
+  right: 16px !important;
+  top: 16px !important;
+  width: 32px !important;
+  height: 32px !important;
+  transition: all 0.2s ease-in-out !important;
+  padding: 0 !important;
+}
+
+#root .wallet-adapter-modal-wrapper .wallet-adapter-modal-button-close:hover {
+  background-color: rgba(154, 205, 50, 0.2) !important;
+}
+
+#root .wallet-adapter-modal-overlay {
+  background: rgba(0, 0, 0, 0.5) !important;
+  backdrop-filter: blur(4px) !important;
+}
