@@ -44,6 +44,7 @@ services:
       - VITE_SOLANA_MAINNET_RPC_URL=${VITE_SOLANA_MAINNET_RPC_URL}
       - VITE_CA=${VITE_CA}
       - VITE_SOLANA_PROGRAM_ID=${VITE_SOLANA_PROGRAM_ID}
+      - VITE_MODE=${VITE_MODE}
     depends_on:
       - server
 

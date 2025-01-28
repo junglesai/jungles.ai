@@ -32,7 +32,6 @@ export const useSolanaBetting = (debateId: string) => {
   const placeBet = async (agentName: string, amount: number) => {
     setLoading(true);
     try {
-      // Implement betting logic here
       await axios.post(`/api/debates/${debateId}/bets`, {
         agentName,
         amount

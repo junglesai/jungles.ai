@@ -11,7 +11,6 @@ export interface IDebate extends mongoose.Document {
     name: string;
     stance: string;
     personality: string;
-    // assistantId: string;
   }>;
   messages: Array<{
     agentId: string;
@@ -48,7 +47,6 @@ const debateSchema = new mongoose.Schema({
     name: String,
     stance: String,
     personality: String,
-    // assistantId: String
   }],
   messages: [{
     agentId: String,

@@ -15,8 +15,8 @@ const Header = () => {
     <header className="bg-gray-900 border-b border-yellowgreen-500/20 sticky top-0 z-50">
       <nav className="max-w-7xl mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
-          <div className="flex items-center space-x-3">
-            <a href="/" className="flex items-center space-x-3">
+          <div className="flex items-center space-x-4">
+            <a href="/" className="flex items-center space-x-2">
               <img src={monkeyLogo} alt="AI Debates Logo" className="h-10 w-10" />
               <span className="text-yellowgreen-100 text-2xl font-bold">{"AI{jungle}"}</span>
             </a>       
@@ -59,7 +59,7 @@ const Header = () => {
               </svg>
             </a>
             <a 
-              href="https://github.com/aijunglefun" 
+              href="https://github.com/aijunglefun/aijungle.fun" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="text-gray-300 hover:text-yellowgreen-400"
@@ -103,7 +103,7 @@ const Header = () => {
               Twitter
             </a>
             <a 
-              href="https://github.com/aijunglefun" 
+              href="https://github.com/aijunglefun/aijungle.fun" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="flex items-center text-gray-300 hover:text-yellowgreen-400"

@@ -1,9 +1,8 @@
 import { PhantomWalletAdapter } from '@solana/wallet-adapter-phantom';
-import { Connection, PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js';
+import { Connection } from '@solana/web3.js';
 
-// Use a public RPC endpoint that supports CORS
-const RPC_URL = "https://devnet.helius-rpc.com/?api-key=068182b0-c7ae-497a-821f-88c78e1b1bd7";
-const connection = new Connection(RPC_URL, 'confirmed');
+const mode = import.meta.env.VITE_MODE;
+const connection = new Connection(mode === 'dev' ? import.meta.env.VITE_SOLANA_DEVNET_RPC_URL : import.meta.env.VITE_SOLANA_MAINNET_RPC_URL, 'confirmed');
 const wallet = new PhantomWalletAdapter();
 
 export const connectWallet = async () => {

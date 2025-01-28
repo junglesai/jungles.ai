@@ -7,7 +7,6 @@ export interface Debate {
     name: string;
     stance: string;
     personality: string;
-    // assistantId: string;
   }[];
   messages: {
     id: string;

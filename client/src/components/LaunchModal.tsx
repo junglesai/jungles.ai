@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 import { initializeDebateOnChain } from '../utils/programUtils';
-import { useConnection, useWallet } from "@solana/wallet-adapter-react";
+import { useWallet } from "@solana/wallet-adapter-react";
 import {
     WalletMultiButton,
     useWalletModal,
@@ -49,7 +49,8 @@ const LaunchModal: React.FC<LaunchModalProps> = ({ isOpen, onClose, onSuccess })
       }
 
     try {
-        const connection = new Connection(import.meta.env.VITE_SOLANA_DEVNET_RPC_URL || '');
+        const mode = import.meta.env.VITE_MODE;
+        const connection = new Connection(mode === 'dev' ? import.meta.env.VITE_SOLANA_DEVNET_RPC_URL : import.meta.env.VITE_SOLANA_MAINNET_RPC_URL);
        const onChainDebate = await initializeDebateOnChain(connection, publicKey, sendTransaction);
        if (!onChainDebate) {
         console.error('Error initializing debate on chain');

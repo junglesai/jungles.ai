@@ -9,7 +9,7 @@ import {
 } from '@solana/web3.js';
 import { sha256 } from 'js-sha256';
 
-export const PROGRAM_ID = new PublicKey('Fze3wnbnZSTPbGSHXTt4J7gvzTJNjH4J2Uq6HRiHbTBo');
+export const PROGRAM_ID = new PublicKey(import.meta.env.VITE_SOLANA_PROGRAM_ID);
 
 export const initializeDebateOnChain = async (
   connection: Connection,

@@ -2,8 +2,6 @@ import React, { useRef, useEffect, useState, Dispatch, SetStateAction } from 're
 import AgentMessage from './AgentMessage';
 import { Debate } from '../types/Debate';
 import axios from 'axios';
-import SlotCounter from 'react-slot-counter';
-import { PublicKey, Connection } from '@solana/web3.js';
 
 interface ChatInterfaceProps {
   messages: Debate['messages'];
@@ -109,10 +107,9 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ messages, setMessages, de
     }
   };
 
-  // Only poll if no verdict exists
   useEffect(() => {
     if (debate?.verdict) {
-      pollMessages(); // Load once
+      pollMessages(); 
       return;
     }
     
@@ -123,12 +120,6 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ messages, setMessages, de
   const totalPool = agentPools[0] + agentPools[1];
   const firstAgentRatio = totalPool > 0 ? (agentPools[0] / totalPool) * 100 : 50;
   const secondAgentRatio = 100 - firstAgentRatio;
-
-  // useEffect(() => {
-  //   if (messages.length === 0 && debate?._id) {
-  //     startDebate();
-  //   }
-  // }, [messages, debate]);
 
   useEffect(() => {
     if (messages.length > 0) {
@@ -165,20 +156,6 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ messages, setMessages, de
           </h2>
           <p className="text-gray-400 mt-1">{debate?.description}</p>
           </div>
-
-          {/* <div className="text-yellowgreen-400 w-60">
-            <span className="lowercase">pool size: </span>
-            <span className={`transition-all duration-500 ${isPoolUpdated ? 'text-yellowgreen-100' : ''}`}>
-              <SlotCounter 
-                value={Number(poolSize) ? (poolSize / 1000000000).toFixed(2) : 0.00}
-                duration={1}
-                startValue="0.00"
-                useMonospaceWidth
-                charClassName="font-mono"
-              />
-            </span>
-            <span> SOL</span>
-          </div>         */}
           </div>
 
           {/* Pool ratio bar */}

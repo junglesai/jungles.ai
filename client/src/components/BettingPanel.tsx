@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { Connection, LAMPORTS_PER_SOL, PublicKey, SystemProgram, TransactionMessage, VersionedTransaction, TransactionInstruction } from '@solana/web3.js';
 import { sha256 } from 'js-sha256';
-import { Keypair } from '@solana/web3.js';
-import { getAssociatedTokenAddress, TOKEN_PROGRAM_ID } from '@solana/spl-token';
 import { Buffer } from 'buffer';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import Toast, { ToastType } from './Toast';
@@ -32,10 +30,9 @@ interface UserPosition {
   currentPullable: number;
 }
 
-const PROGRAM_ID = new PublicKey('Fze3wnbnZSTPbGSHXTt4J7gvzTJNjH4J2Uq6HRiHbTBo');
+const PROGRAM_ID = new PublicKey(import.meta.env.VITE_SOLANA_PROGRAM_ID);
 
-
-const BettingPanel: React.FC<Props> = ({ debateId, agents, status, onPoolsUpdate, poolSize, isPoolUpdated, agentPools, setPoolSize, setAgentPools }) => {
+const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools }) => {
   const { connected, publicKey, sendTransaction } = useWallet();
   const [poolInfo, setPoolInfo] = useState<{
     agent1Pool: number;
@@ -54,7 +51,8 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, status, onPoolsUpdate
     currentPullable: 0
   });
   
-  const connection = new Connection(import.meta.env.VITE_SOLANA_DEVNET_RPC_URL || '');
+  const mode = import.meta.env.VITE_MODE;
+  const connection = new Connection(mode === 'dev' ? import.meta.env.VITE_SOLANA_DEVNET_RPC_URL : import.meta.env.VITE_SOLANA_MAINNET_RPC_URL);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
 
   const fetchPoolsFromChain = async () => {
@@ -201,31 +199,7 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, status, onPoolsUpdate
 
       const signature = await sendTransaction(transaction, connection);
       await axios.post(`/api/debates/${debateId}/update-pool`);
-      // await connection.confirmTransaction({
-      //   signature,
-      //   blockhash,
-      //   lastValidBlockHeight: await connection.getBlockHeight()
-      // });
-
-      // console.log(agentPools, amount)
-      // console.log(poolSize)
-      // const newPoolSize = poolSize + Number(amount) * LAMPORTS_PER_SOL;
-      // setPoolSize(newPoolSize);
-      // setAgentPools([agentIndex === 0 ? agentPools[0] + Number(amount) * LAMPORTS_PER_SOL : agentPools[0], agentIndex === 1 ? agentPools[1] + Number(amount) * LAMPORTS_PER_SOL : agentPools[1]]);
-
-      // const newPoolInfo = { 
-      //   agent1Pool: agentIndex === 0 ? poolInfo.agent1Pool + Number(amount) : poolInfo.agent1Pool,
-      //   agent2Pool: agentIndex === 1 ? poolInfo.agent2Pool + Number(amount) : poolInfo.agent2Pool,
-      //   totalPool: poolInfo.totalPool + Number(amount)
-      // }
-
-      // setPoolInfo(newPoolInfo);
-
-      // await fetchPoolsFromChain();
-      // onPoolsUpdate();
       setToast({ message: 'Bet placed successfully!', type: 'success' });
-
-      // Clear input after successful bet
       const newBetAmounts = [...betAmounts];
       newBetAmounts[agentIndex] = '';
       setBetAmounts(newBetAmounts as [string, string]);
@@ -258,7 +232,6 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, status, onPoolsUpdate
         throw new Error('Debate account not found');
       }
 
-      // Use exact same offset as the working test
       const authority = new PublicKey(
         Buffer.from(debateAccountInfo.data).slice(8 + 32 + 32 + 8 + 8 + 1 + 1, 8 + 32 + 32 + 8 + 8 + 1 + 1 + 32)
       );
@@ -272,10 +245,8 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, status, onPoolsUpdate
         PROGRAM_ID
       );
 
-      // Convert amount to lamports
       const withdrawalAmount = BigInt(Math.floor(parseFloat(amount) * LAMPORTS_PER_SOL));
 
-      // Create withdraw instruction
       const discriminator = Buffer.from(sha256.digest("global:withdraw").slice(0, 8));
       const data = Buffer.concat([
         discriminator,
@@ -307,14 +278,6 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, status, onPoolsUpdate
       const signature = await sendTransaction(transaction, connection);
       await axios.post(`/api/debates/${debateId}/update-pool`);
 
-      // setPoolInfo({
-      //   agent1Pool: agentIndex === 0 ? poolInfo.agent1Pool - Number(amount) : poolInfo.agent1Pool,
-      //   agent2Pool: agentIndex === 1 ? poolInfo.agent2Pool - Number(amount) : poolInfo.agent2Pool,
-      //   totalPool: poolInfo.totalPool - Number(amount)
-      // });
-
-      // await fetchPoolsFromChain();
-      // onPoolsUpdate();
       setToast({ message: 'Bet withdrawn successfully!', type: 'success' });
 
       const newPullAmounts = [...pullAmounts];

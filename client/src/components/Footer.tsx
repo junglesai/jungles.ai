@@ -1,10 +1,15 @@
+import monkeyLogo from "../assets/images/monkey.png";
+
 const Footer = () => {
   return (
     <footer className="bg-gray-900 border-t border-yellowgreen-500/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 justify-between">
           <div>
-            <h3 className="text-yellowgreen-400 font-semibold mb-4">AI{"{jungle}"}</h3>
+          <a href="/" className="flex items-center space-x-2 mb-4">
+              <img src={monkeyLogo} alt="AI Debates Logo" className="h-8 w-8" />
+              <span className="text-yellowgreen-100 text-1xl font-bold">{"AI{jungle}"}</span>
+            </a>     
             <p className="text-gray-400 lowercase">Exploring the future through AI-powered debates.</p>
           </div>
           <div className="md:justify-self-end">
@@ -21,7 +26,7 @@ const Footer = () => {
                 </svg>
               </a>
               <a 
-                href="https://github.com/aijunglefun" 
+                href="https://github.com/aijunglefun/aijungle.fun" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="text-gray-400 hover:text-yellowgreen-400"
