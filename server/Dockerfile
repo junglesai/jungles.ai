@@ -2,17 +2,16 @@ FROM node:23.3.0-alpine
 
 WORKDIR /app
 
-# Install development dependencies including ts-node
-RUN npm install -g ts-node typescript nodemon
+# Install python and build dependencies
+RUN apk add --no-cache python3 make g++
 
 COPY package*.json ./
 
-# Install all dependencies (including devDependencies)
-RUN npm install --include=dev
+# Install dependencies
+RUN npm install
 
 COPY . .
 
 EXPOSE 5555
 
-# Update the CMD to use ts-node directly
 CMD ["npm", "run", "start:init"] 

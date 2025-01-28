@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "start": "NODE_ENV=production NODE_OPTIONS='--loader ts-node/esm' node src/index.ts",
-    "dev": "nodemon -e ts --exec \"NODE_OPTIONS='--loader ts-node/esm --trace-uncaught' node\" src/index.ts",
-    "dev:init": "nodemon -e ts --exec \"NODE_OPTIONS='--loader ts-node/esm --trace-uncaught' node\" src/scripts/initialize.ts",
-    "start:init": "NODE_OPTIONS='--loader ts-node/esm' node src/scripts/initialize.ts && NODE_OPTIONS='--loader ts-node/esm' node src/index.ts",
-    "start:generate": "NODE_OPTIONS='--loader ts-node/esm' node src/scripts/generateDebates.ts && NODE_OPTIONS='--loader ts-node/esm' node src/index.ts",
+    "start": "NODE_ENV=production node --loader ts-node/esm src/index.ts",
+    "dev": "nodemon -e ts --exec \"node --loader ts-node/esm\" src/index.ts",
+    "dev:init": "nodemon -e ts --exec \"node --loader ts-node/esm\" src/scripts/initialize.ts",
+    "start:init": "node --loader ts-node/esm src/scripts/initialize.ts && node --loader ts-node/esm src/index.ts",
+    "start:generate": "node --loader ts-node/esm src/scripts/generateDebates.ts && node --loader ts-node/esm src/index.ts",
     "seed": "node --loader ts-node/esm src/scripts/seedTopics.ts"
   },
   "keywords": [],
