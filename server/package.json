@@ -10,26 +10,22 @@
     "start:generate": "NODE_OPTIONS='--loader ts-node/esm' node src/scripts/generateDebates.ts && NODE_OPTIONS='--loader ts-node/esm' node src/index.ts",
     "seed": "node --loader ts-node/esm src/scripts/seedTopics.ts"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
     "@project-serum/anchor": "^0.26.0",
     "@solana/web3.js": "^1.98.0",
-    "@types/express": "^5.0.0",
-    "@types/node": "^22.10.5",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "js-sha256": "^0.11.0",
     "mongoose": "^8.9.5",
     "openai": "^4.77.3",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.7.2",
     "zod": "^3.24.1"
   },
   "devDependencies": {
-    "@types/cors": "^2.8.17"
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
   }
 }
