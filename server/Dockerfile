@@ -1,13 +1,11 @@
-FROM node:23.3.0-alpine
+FROM node:18-alpine
 
 WORKDIR /app
 
-# Install python and build dependencies
-RUN apk add --no-cache python3 make g++
+RUN npm install -g nodemon
 
 COPY package*.json ./
 
-# Install dependencies
 RUN npm install
 
 COPY . .
