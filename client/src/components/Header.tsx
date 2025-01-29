@@ -85,12 +85,15 @@ const Header = () => {
         {/* Mobile menu */}
         {isMenuOpen && (
           <div className="absolute left-0 right-0 bg-gray-900 px-4 py-8 md:hidden mt-4 space-y-8 border-b border-yellowgreen-500/20 border-t border-yellowgreen-500/20">
-              <p className="text-gray-300 hover:text-yellowgreen-400 cursor-pointer">
+              <p className="text-gray-300 hover:text-yellowgreen-400 cursor-pointer" onClick={() => {
+                setIsMenuOpen(false);
+                setIsHowItWorksOpen(true);
+              }}>
                 {"{How it Works}"}
               </p>
-            <p className="text-gray-300 hover:text-yellowgreen-400 cursor-pointer break-all">
-              {"{CA: 6StpWairG6VDpk6UZg5U8njqJLo7YGbh2bS6nXPhZPP}"}
-            </p> 
+            {ca && <p className="text-gray-300 hover:text-yellowgreen-400 cursor-pointer break-all">
+              {"{CA: " + ca + " }"}
+            </p> } 
             <a 
               href="https://x.com/aijunglefun" 
               target="_blank" 
