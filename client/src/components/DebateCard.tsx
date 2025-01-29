@@ -23,7 +23,7 @@ const DebateCard = ({ debate }: DebateCardProps) => {
       <div className="p-6 flex flex-col h-full">
         <div className="mb-auto">
           <div className="flex justify-between items-start mb-4">
-            <h3 className="text-lg font-semibold text-yellowgreen-400 max-w-60">{debate.title}</h3>
+            <h3 className="text-lg font-semibold text-yellowgreen-400">{debate.title}</h3>
             
           </div>
           <p className="text-gray-300 mb-4 text-md">{debate.description}</p>
@@ -34,7 +34,7 @@ const DebateCard = ({ debate }: DebateCardProps) => {
             {debate.agents.map((agent, index) => (
               <div key={index} className="flex items-center justify-between bg-gray-700 p-3 rounded">
                 <span className="text-gray-200 font-medium text-sm">{agent.name}</span>
-                <span className="text-xs text-yellowgreen-400 lowercase">{agent.stance}</span>
+                <span className="text-xs text-yellowgreen-400 lowercase text-right">{agent.stance}</span>
               </div>
             ))}
           </div>
