@@ -69,7 +69,7 @@ const Header = () => {
               </svg>
             </a>
             <a 
-              href="https://solscan.io/address/YOUR_CONTRACT_ADDRESS" 
+              href="https://solscan.io/address/Fze3wnbnZSTPbGSHXTt4J7gvzTJNjH4J2Uq6HRiHbTBo" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="text-gray-300 hover:text-yellowgreen-400"
@@ -114,7 +114,7 @@ const Header = () => {
               GitHub
             </a>
             <a 
-              href="https://solscan.io/address/YOUR_CONTRACT_ADDRESS" 
+              href="https://solscan.io/address/Fze3wnbnZSTPbGSHXTt4J7gvzTJNjH4J2Uq6HRiHbTBo" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="flex items-center text-gray-300 hover:text-yellowgreen-400"
