@@ -315,15 +315,16 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools 
 
   return (
     <div className="px-0 py-0 border-gray-700">
-      <div className="flex justify-between items-center mb-4 border-b border-gray-700 pb-4">
-        <div className="text-gray-400 lowercase">Total Pool</div>
+      <div className="flex justify-between items-center mb-4 border-gray-700 pb-4 bg-gray-800 p-4 rounded-lg shadow-xl">
+        <div className="text-gray-400 lowercase">{"{"} Total Pool {"}"}</div>
         <div className="text-yellowgreen-400 font-semibold">
           {isMobile ? (
-            <span>{(poolSize / 1000000000).toFixed(2)} SOL</span>
+            <span>{"{ "}{(poolSize / 1000000000).toFixed(2)} SOL{" }"}</span>
           ) : (
             <>
+            
               <span className={`transition-all duration-500`}>
-                <SlotCounter 
+              {"{"} <SlotCounter 
                   value={(poolSize / 1000000000).toFixed(2)}
                   duration={1}
                   startValue="0.00"
@@ -331,19 +332,19 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools 
                   charClassName="font-mono"
                 />
               </span>
-              <span> SOL</span>
+              <span> SOL{" }"}</span>
             </>
           )}
         </div>
       </div>
-      
+      <hr className="w-full border-gray-700 mb-4"/>
       <div className="flex flex-col gap-4">
         {agents.map((agent, index) => (
           <div key={agent.name} className="bg-gray-700 rounded-lg p-4">
             <div className="flex justify-between items-center">
-              <div className="text-white font-medium">{agent.name}</div>
+              <div className="text-white font-medium">{"{"} {agent.name} {"}"}</div>
               <div className="text-sm bg-gray-600 px-3 py-1 rounded-full">
-                {(index === 0 ? agentPools[0] / LAMPORTS_PER_SOL : agentPools[1] / LAMPORTS_PER_SOL).toFixed(2)} SOL
+                {"{"} {(index === 0 ? agentPools[0] / LAMPORTS_PER_SOL : agentPools[1] / LAMPORTS_PER_SOL).toFixed(2)} SOL {"}"}
               </div>
             </div>
             
@@ -404,7 +405,7 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools 
       {/* User Position Panel */}
       {connected && userPosition.totalInvested > 0 && (
         <div className="mt-6 bg-gray-800 rounded-lg p-4">
-          <h3 className="text-yellowgreen-400 font-medium mb-3">Your Position</h3>
+          <h3 className="text-yellowgreen-400 font-medium mb-3">{"{"} Your Position {"}"}</h3>
           
           <div className="space-y-2">
             <div className="flex justify-between text-sm">

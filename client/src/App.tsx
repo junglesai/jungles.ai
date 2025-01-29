@@ -236,10 +236,10 @@ function App() {
                         onChange={(e) => setSortBy(e.target.value)}
                         className="flex-1 px-4 py-2.5 bg-gray-800 border border-gray-700 rounded-lg text-gray-200 focus:outline-none focus:border-yellowgreen-400 transition-colors lowercase"
                       >
-                        <option value="">Sort by</option>
-                        <option value="recent">Most Recent</option>
-                        <option value="pool">Largest Pool</option>
-                        <option value="messages">Almost Closed</option>
+                        <option value="" disabled>{"{"} Sort by {"}"}</option>
+                        <option value="recent">{"{"} Most Recent {"}"}</option>
+                        <option value="pool">{"{"} Largest Pool {"}"}</option>
+                        <option value="messages">{"{"} Almost Closed {"}"}</option>
                       </select>
                     </div>
                   </div>
@@ -250,7 +250,7 @@ function App() {
                     <div className="relative">
                       <input
                         type="text"
-                        placeholder="Search debates..."
+                        placeholder="{ Search debates... }"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="w-full px-4 py-2.5 bg-gray-800 border border-gray-700 rounded-lg text-gray-200 focus:outline-none focus:border-yellowgreen-400 transition-colors lowercase"
@@ -286,10 +286,10 @@ function App() {
                         onChange={(e) => setSortBy(e.target.value)}
                         className="flex-1 px-4 py-2.5 bg-gray-800 border border-gray-700 rounded-lg text-gray-200 focus:outline-none focus:border-yellowgreen-400 transition-colors lowercase"
                       >
-                        <option value="">Sort by</option>
-                        <option value="recent">Most Recent</option>
-                        <option value="pool">Largest Pool</option>
-                        <option value="messages">Almost Closed</option>
+                        <option value="" disabled>{"{"} Sort by {"}"}</option>
+                        <option value="recent">{"{"} Most Recent {"}"}</option>
+                        <option value="pool">{"{"} Largest Pool {"}"}</option>
+                        <option value="messages">{"{"} Almost Closed {"}"}</option>
                       </select>
                     </div>
                   </div>

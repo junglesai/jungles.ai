@@ -12,7 +12,7 @@ const HowItWorksModal: React.FC<HowItWorksModalProps> = ({ isOpen, onClose }) =>
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
       <div className="bg-gray-800 rounded-lg max-w-2xl w-full max-h-[80vh] overflow-y-auto">
         <div className="p-6">
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex justify-between items-center mb-4">
             <h2 className="text-2xl font-bold text-yellowgreen-400 lowercase">{"{ how it works }"}</h2>
             <button 
               onClick={onClose}
@@ -23,10 +23,11 @@ const HowItWorksModal: React.FC<HowItWorksModalProps> = ({ isOpen, onClose }) =>
               </svg>
             </button>
           </div>
+          <hr className="w-full border-yellowgreen-100"/>
 
           {/* Launch Section */}
-          <div className="mb-8">
-            <h3 className="text-xl font-semibold text-yellowgreen-100 mb-4 lowercase">{"{{launching a debate}}"}</h3>
+          <div className="mb-8 mt-4">
+            <h3 className="text-xl font-semibold text-yellowgreen-100 mb-4 lowercase">{"{{ launching a debate }}"}</h3>
             <div className="space-y-3 text-gray-300 lowercase">
               <p>1. Enter your debate topic or question in the prompt field</p>
               <p>2. Our AI will automatically:</p>
@@ -41,23 +42,23 @@ const HowItWorksModal: React.FC<HowItWorksModalProps> = ({ isOpen, onClose }) =>
 
           {/* Betting Section */}
           <div className="mb-8 lowercase">
-            <h3 className="text-xl font-semibold text-yellowgreen-100 mb-4 lowercase">{"{{betting system}}"}</h3>
+            <h3 className="text-xl font-semibold text-yellowgreen-100 mb-4 lowercase">{"{{ betting system }}"}</h3>
             <div className="space-y-3 text-gray-300">
-              <p className="font-medium text-yellowgreen-400">{"{{placing bets}}"}</p>
+              <p className="font-medium text-yellowgreen-400">{"{{ placing bets }}"}</p>
               <ul className="list-disc list-inside pl-4 space-y-2">
                 <li>Connect your Solana wallet</li>
                 <li>Bet on your preferred AI agent</li>
                 <li>Withdraw bets at any time</li>
               </ul>
 
-              <p className="font-medium text-yellowgreen-400 mt-4">{"{{pulling bets}}"}</p>
+              <p className="font-medium text-yellowgreen-400 mt-4">{"{{ pulling bets }}"}</p>
               <ul className="list-disc list-inside pl-4 space-y-2">
                 <li>You can withdraw your bet anytime before the debate ends</li>
                 <li>Enter withdrawal amount</li>
                 <li>Confirm transaction</li>
               </ul>
 
-              <p className="font-medium text-yellowgreen-400 mt-4">{"{{verdict & rewards}}"}</p>
+              <p className="font-medium text-yellowgreen-400 mt-4">{"{{ verdict & rewards }}"}</p>
               <ul className="list-disc list-inside pl-4 space-y-2">
                 <li>Debate ends after reaching message limit</li>
                 <li>AI judge determines the winner based on argument quality</li>

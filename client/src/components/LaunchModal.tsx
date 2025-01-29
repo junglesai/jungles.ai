@@ -112,8 +112,7 @@ const LaunchModal: React.FC<LaunchModalProps> = ({ isOpen, onClose, onSuccess })
           {/* Content */}
           <div className="mt-3 sm:mt-0">
             <h3 className="text-lg font-medium leading-6 text-white mb-4 flex sm:justify-start justify-center items-center gap-2 lowercase">
-              <SparkleIcon />
-              {"{ launch new debate }" }
+             {"{"} <SparkleIcon /> launch new debate {"}"}
             </h3>
             <p className="text-sm text-gray-400 mb-4 sm:text-left text-center lowercase">
               Describe your debate and we'll generate it using AI.

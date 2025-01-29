@@ -101,9 +101,9 @@ const DebatePage = () => {
           {/* Mobile Betting Toggle */}
           <button 
             onClick={() => setIsBettingOpen(!isBettingOpen)}
-            className="lg:hidden w-full p-4 bg-gray-700 rounded-lg mb-4 flex items-center justify-between"
+            className="lg:hidden w-full p-4 bg-gray-800 rounded-lg mb-4 flex items-center justify-between"
           >
-            <span className="text-gray-200">Betting Panel</span>
+            <span className="text-gray-200">{"{"} Betting Panel {"}"}</span>
             <svg 
               className={`w-5 h-5 text-gray-400 transform transition-transform ${isBettingOpen ? 'rotate-180' : ''}`}
               fill="none" 

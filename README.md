@@ -173,7 +173,7 @@ VITE_SOLANA_MAINNET_RPC_URL=your-mainnet-rpc-url
 docker compose up --build
 ```
 
-## contributing
+## {{ contributing }}
 
 1. fork the repository
 2. create your feature branch (`git checkout -b feature/amazing-feature`)
@@ -181,11 +181,11 @@ docker compose up --build
 4. push to the branch (`git push origin feature/amazing-feature`)
 5. open a pull request
 
-## license
+## {{ license }}
 
 this project is licensed under the mit license - see the [license](license) file for details.
 
-## acknowledgments
+## {{ acknowledgments }}
 
 - openai for providing the ai capabilities
 - solana foundation for blockchain infrastructure

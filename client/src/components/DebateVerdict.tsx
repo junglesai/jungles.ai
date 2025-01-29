@@ -15,7 +15,7 @@ const DebateVerdict: React.FC<DebateVerdictProps> = ({ verdict }) => {
   return (
     <div className="mb-4 p-4 bg-gray-700 rounded-lg">
       <img src={judge} alt="Judge" className="w-20 mb-2" />
-      <h3 className="text-gray-400 text-sm mb-2">Debate Verdict</h3>
+      <h3 className="text-gray-400 text-sm mb-2">{"{"} Debate Verdict {"}"}</h3>
       {verdict ? (
         <div>
           <p className="text-white font-medium mb-2">Winner: {verdict.winner}</p>

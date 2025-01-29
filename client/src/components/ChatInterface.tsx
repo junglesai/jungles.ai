@@ -152,7 +152,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ messages, setMessages, de
         <div className="flex justify-between items-center">
           <div>
           <h2 className="text-xl font-bold text-white">
-          {debate?.title || 'Loading debate...'}
+          {"{ "}{debate?.title || 'Loading debate...'}{" }"}
           </h2>
           <p className="text-gray-400 mt-1">{debate?.description}</p>
           </div>
