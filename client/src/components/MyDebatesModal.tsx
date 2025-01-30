@@ -31,7 +31,7 @@ const MyDebatesModal = ({ isOpen, onClose, ownedDebates }: MyDebatesModalProps) 
             
             <div className="space-y-2 max-h-[60vh] overflow-y-auto">
               {ownedDebates.length === 0 ? (
-                <p className="text-gray-400 text-center py-8">{"{ No debates found }"}</p>
+                <p className="text-gray-400 text-center py-8">{"{ no debates found }"}</p>
               ) : (
                 ownedDebates.map((debate) => (
                   <MyDebateCard key={debate._id} debate={debate} />

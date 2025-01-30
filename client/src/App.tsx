@@ -195,7 +195,7 @@ function App() {
               <div className="max-w-7xl mx-auto">
                 <div className="flex justify-center items-center">
                   <img src={judgeRight} alt="AI Debates Logo" className="w-20 mb-2 mr-4" /> 
-                  <h1 className="text-2xl md:text-5xl font-bold text-yellowgreen-400 text-center uppercase courier">
+                  <h1 className="text-2xl md:text-5xl font-bold text-yellowgreen-400 text-center uppercase courier line-height-1">
                     <span>AI-Powered</span> <span className='text-4xl md:text-5xl'>Debates</span>
                   </h1>
                   <img src={judgeLogo} alt="AI Debates Logo" className="w-20 mb-2 ml-4" /> 
@@ -329,7 +329,7 @@ function App() {
                         d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" 
                       />
                     </svg>
-                    <p className="text-xl mb-2">No debates found</p>
+                    <p className="text-xl mb-2">no debates found</p>
                     <p className="text-sm">
                       {searchTerm 
                         ? `No results found for "${searchTerm}"`
