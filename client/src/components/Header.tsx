@@ -5,10 +5,12 @@ import {
     WalletMultiButton,
   } from "@solana/wallet-adapter-react-ui";
 import HowItWorksModal from './HowItWorksModal';
+import MyDebatesModal from './MyDebatesModal';
 
-const Header = () => {
+const Header = ({ ownedDebates }: { ownedDebates: Array<any> }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isHowItWorksOpen, setIsHowItWorksOpen] = useState(false);
+  const [isMyDebatesOpen, setIsMyDebatesOpen] = useState(false);
 
   const ca = import.meta.env.VITE_CA;
   return (
@@ -18,7 +20,7 @@ const Header = () => {
           <div className="flex items-center space-x-4">
             <a href="/" className="flex items-center space-x-2">
               <img src={monkeyLogo} alt="AI Debates Logo" className="h-10 w-10" />
-              <span className="text-yellowgreen-100 text-2xl font-bold">{"AI{jungle}"}</span>
+              <span className="text-yellowgreen-100 text-2xl font-bold courier">{"AI{jungle}"}</span>
             </a>       
             <div className="hidden md:flex items-center space-x-3">
               <span 
@@ -27,9 +29,12 @@ const Header = () => {
               >
                 {"{ how it works }" }
               </span>
-            {ca && <span className="text-gray-300 hover:text-yellowgreen-400 cursor-pointer">
-              {"{ ca: " + ca + " }"}
-            </span> } 
+              <span 
+                className="text-gray-300 hover:text-yellowgreen-400 cursor-pointer"
+                onClick={() => setIsMyDebatesOpen(true)}
+              >
+                {"{ my debates }"}
+              </span>
             </div>
           </div>
           
@@ -89,10 +94,16 @@ const Header = () => {
                 setIsMenuOpen(false);
                 setIsHowItWorksOpen(true);
               }}>
-                {"{How it Works}"}
+                {"{ how it works }"}
+              </p>
+              <p className="text-gray-300 hover:text-yellowgreen-400 cursor-pointer" onClick={() => {
+                setIsMenuOpen(false);
+                setIsMyDebatesOpen(true);
+              }}>
+                {"{ my debates }"}
               </p>
             {ca && <p className="text-gray-300 hover:text-yellowgreen-400 cursor-pointer break-all">
-              {"{CA: " + ca + " }"}
+              {"{ ca: " + ca + " }"}
             </p> } 
             <a 
               href="https://x.com/aijunglefun" 
@@ -134,6 +145,12 @@ const Header = () => {
       <HowItWorksModal 
         isOpen={isHowItWorksOpen}
         onClose={() => setIsHowItWorksOpen(false)}
+      />
+
+      <MyDebatesModal 
+        isOpen={isMyDebatesOpen}
+        onClose={() => setIsMyDebatesOpen(false)}
+        ownedDebates={ownedDebates}
       />
     </header>
   );

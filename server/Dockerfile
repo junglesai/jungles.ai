@@ -12,4 +12,4 @@ COPY . .
 
 EXPOSE 5555
 
-CMD ["npm", "run", "start:init"]
+CMD ["npm", "run", "start"]

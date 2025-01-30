@@ -33,6 +33,8 @@ export const verifyTransaction = async (signature: string, debateAddress: string
         if (!tx) {
           return { error: true, message: 'Transaction not found' }
         }
+
+        const sender = tx.transaction.message.staticAccountKeys[0].toBase58();
     
         if (!tx.transaction.message.staticAccountKeys.some(key => key.equals(PROGRAM_ID))) {
           return { error: true, message: 'Invalid program ID' }
@@ -51,8 +53,9 @@ export const verifyTransaction = async (signature: string, debateAddress: string
         if (!agent1OnChain.equals(new PublicKey(agent1)) || !agent2OnChain.equals(new PublicKey(agent2))) {
         return { error: true, message: 'Agent addresses do not match on-chain data' }
         }
+
     
-        return { error: false, message: 'Debate created', debateAddress, agent1, agent2, signature };
+        return { error: false, message: 'Debate created', debateAddress, agent1, agent2, signature, deployer: sender };
       } catch (error) {
         console.error('Error verifying transaction:', error);
         return { error: true, message: 'Error verifying transaction' }

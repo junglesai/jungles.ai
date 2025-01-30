@@ -7,6 +7,7 @@ export interface IDebate extends mongoose.Document {
   threadId: string;
   messageLimit: number;
   totalPool: number;
+  deployer: string;
   agents: Array<{
     name: string;
     stance: string;
@@ -43,6 +44,7 @@ const debateSchema = new mongoose.Schema({
   },
   description: String,
   totalPool: Number,
+  deployer: String,
   agents: [{
     name: String,
     stance: String,
@@ -84,7 +86,7 @@ const debateSchema = new mongoose.Schema({
       validator: (v: number) => v % 2 === 0 && v > 0,
       message: 'Message limit must be a positive even number'
     },
-    default: 10
+    default: 100
   },
   verdict: {
     winner: String,
@@ -153,6 +155,11 @@ const createIndexes = async () => {
     if (!existingIndexes.includes('totalPool_-1')) {
       await Debate.collection.createIndex({ totalPool: -1 });
       console.log('Created index for totalPool');
+    }
+
+    if (!existingIndexes.includes('deployer_1')) {
+      await Debate.collection.createIndex({ deployer: 1 });
+      console.log('Created index for deployer');
     }
   } catch (error) {
     console.error('Error creating indexes:', error);

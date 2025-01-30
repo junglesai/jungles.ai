@@ -219,7 +219,7 @@ const Debate = z.object({
 });
 
   const debate = await openai.beta.chat.completions.parse({
-    model: process.env.DEBATE_MODEL as string,
+    model: process.env.DEBATE_MODEL as ChatModel,
     messages: messages.map(msg => ({
       role: msg.role as 'system' | 'user' | 'assistant',
       content: msg.content

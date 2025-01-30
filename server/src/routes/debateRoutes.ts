@@ -26,7 +26,7 @@ router.get('/', async (req: Request, res: Response) => {
     const lastId = req.query.lastId as string;
     const search = req.query.search as string;
     const sort = req.query.sort as string;
-    
+    const deployer = req.query.deployer as string;
     let query: any = {};
     let sortQuery: any = { _id: -1 }; // default sort
 
@@ -59,9 +59,15 @@ router.get('/', async (req: Request, res: Response) => {
 
     const hasNextPage = debates.length > limit;
     const items = debates.slice(0, limit);
+
+    let myDebates = [];
+    if (deployer) { 
+      myDebates = await Debate.find({ deployer });
+    }
     
     res.json({
       items,
+      myDebates,
       pagination: {
         hasNextPage,
         nextLastId: hasNextPage ? items[items.length - 1]._id : null,
@@ -146,6 +152,7 @@ router.post('/create', async (req: Request, res: Response) => {
       agents: [debateResponse.agent1, debateResponse.agent2],
       signature: signature,
       solanaAddress: debateAddress,
+      deployer: verify.deployer,
     }
     const debate = new Debate(newDebate);
     await debate.save();

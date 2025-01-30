@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import DebatePage from './pages/DebatePage';
 import LaunchModal from './components/LaunchModal';
 import axios from 'axios';
-
+import { useWallet } from '@solana/wallet-adapter-react';
 interface Debate {
   _id: string;
   title: string;
@@ -25,6 +25,7 @@ interface Debate {
     content: string;
     status: string;
   }>;
+  solanaAddress: string;
 }
 
 // Sparkle icon component
@@ -43,6 +44,7 @@ const SparkleIcon = () => (
 );
 
 function App() {
+  const { publicKey } = useWallet();
   const [debates, setDebates] = useState<Debate[]>([]);
   const [loading, setLoading] = useState(true);
   const [pagination, setPagination] = useState({
@@ -55,6 +57,7 @@ function App() {
   const [sortBy, setSortBy] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newDebateIds, setNewDebateIds] = useState<Set<string>>(new Set());
+  const [ownedDebates, setOwnedDebates] = useState<Debate[]>([]);
   const POLL_INTERVAL = 5000; // 5 seconds
 
   const fetchDebates = async (noLoading: boolean = false, lastId?: string, polling: boolean = false, _searchTerm_?: string, _sortBy_?: string) => {
@@ -78,8 +81,12 @@ function App() {
         params.append('sort', _sortBy_ || sortBy);
       }
 
+      if (publicKey) {
+        params.append('deployer', publicKey.toBase58());
+      }
+
       const response = await axios.get(`/api/debates?${params}`);
-      const { items: newDebates, pagination: newPagination } = response.data;
+      const { items: newDebates, pagination: newPagination, myDebates } = response.data;
       
       setDebates(prevDebates => {
         if (polling) {
@@ -118,6 +125,10 @@ function App() {
           return lastId ? [...prevDebates, ...newDebates] : newDebates;
         }
       });
+
+      if (myDebates) {
+        setOwnedDebates(myDebates);
+      }
 
       if (!polling) {
         setPagination(newPagination);
@@ -171,10 +182,11 @@ function App() {
     }
   }, [sortBy, searchTerm]); // Reset polling when sort or search changes
 
+  const ca = import.meta.env.VITE_CA;
   return (
     <Router>
       <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 flex flex-col">
-        <Header />
+        <Header ownedDebates={ownedDebates} />
         
         <Routes>
           <Route path="/debates/:id" element={<DebatePage />} />
@@ -183,15 +195,17 @@ function App() {
               <div className="max-w-7xl mx-auto">
                 <div className="flex justify-center items-center">
                   <img src={judgeRight} alt="AI Debates Logo" className="w-20 mb-2 mr-4" /> 
-                  <h1 className="text-2xl md:text-5xl font-bold text-yellowgreen-400 mb-1 text-center uppercase">
+                  <h1 className="text-2xl md:text-5xl font-bold text-yellowgreen-400 text-center uppercase courier">
                     <span>AI-Powered</span> <span className='text-4xl md:text-5xl'>Debates</span>
                   </h1>
                   <img src={judgeLogo} alt="AI Debates Logo" className="w-20 mb-2 ml-4" /> 
                 </div>
-                <p className="text-gray-400 text-center mb-8 max-w-3xl mx-auto lowercase">
+                <p className={`text-gray-400 text-center ${ca ? 'mb-4' : 'mb-8'} max-w-3xl mx-auto lowercase`}>
                   Watch AI agents engage in thoughtful discussions about contemporary issues
                 </p>
-
+                {ca && <a href={`https://solscan.io/address/${ca}`} target="_blank" className="text-gray-300 hover:text-yellowgreen-400 cursor-pointer mb-4 block text-center hidden md:block">
+                 {"{ ca: " + ca + " }"}
+                </a> } 
                 {/* Search, Launch, and Filter Bar */}
                 <div className="max-w-7xl mx-auto mb-4">
                   {/* Mobile Stacked Layout */}

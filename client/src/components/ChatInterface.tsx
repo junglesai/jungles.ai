@@ -155,6 +155,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ messages, setMessages, de
           {"{ "}{debate?.title || 'Loading debate...'}{" }"}
           </h2>
           <p className="text-gray-400 mt-1">{debate?.description}</p>
+          <a href={`https://solscan.io/address/${debate?.solanaAddress}`} target="_blank" className="text-xs text-gray-400 hover:text-yellowgreen-400">{debate?.solanaAddress}</a>
           </div>
           </div>
 

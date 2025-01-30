@@ -11,7 +11,7 @@ const MessageCounter: React.FC<Props> = ({ currentCount, messageLimit }) => {
       <div className="flex justify-between items-center">
         <span className="text-gray-400 lowercase">{"{"} Messages {"}"}</span>
         <span className="text-sm text-gray-400">
-          {"{"} <SlotCounter value={currentCount} /> / {messageLimit} {"}"}
+          {"{"} <SlotCounter value={currentCount} /> / <SlotCounter value={messageLimit} /> {"}"}
         </span>
       </div>
     </div>

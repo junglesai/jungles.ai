@@ -14,6 +14,7 @@ interface DebateCardProps {
     messages: Array<any>;
     messageLimit: number;
     totalPool: number;
+    solanaAddress: string;
   };
 }
 
@@ -30,7 +31,7 @@ const DebateCard = ({ debate }: DebateCardProps) => {
         </div>
         
         <div className="mt-4">
-          <div className="space-y-3 mb-6">
+          <div className="space-y-3 mb-2">
             {debate.agents.map((agent, index) => (
               <div key={index} className="flex items-center justify-between bg-gray-700 p-3 rounded">
                 <span className="text-gray-200 font-medium text-sm">{agent.name}</span>
@@ -38,8 +39,8 @@ const DebateCard = ({ debate }: DebateCardProps) => {
               </div>
             ))}
           </div>
-          
-          <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+          <a href={`https://solscan.io/address/${debate.solanaAddress}`} target="_blank" className="text-xs text-gray-400 hover:text-yellowgreen-400">{debate.solanaAddress}</a>
+          <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mt-4">
             <div className="flex items-center justify-between gap-3">
             {/* <span className={`lowercase px-3 py-1 rounded-full text-sm uppercase tracking-wider ${
                 debate.status === 'active' 
@@ -55,8 +56,8 @@ const DebateCard = ({ debate }: DebateCardProps) => {
               <span className="bg-gray-700 text-yellowgreen-100 px-3 py-1 rounded-full text-xs font-medium">
               {Number(debate.totalPool) ? <SlotCounter value={(Number(debate.totalPool) / 1000000000).toFixed(2)}/> : 0} SOL
               </span>
-              <span className="text-xs text-gray-400">
-              {"{"} <SlotCounter value={debate.messages.length}/> / {debate.messageLimit} {"}"}
+              <span className="text-xs text-gray-400 slotWrapper">
+              {"{"} {debate.messages.length} / {debate.messageLimit} {"}"}
               </span>
             </div>
             <Link 
