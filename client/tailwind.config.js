@@ -17,6 +17,9 @@ module.exports = {
           800: "#1F2937",
           900: "#111827",
         },
+        superyellowgreen: {
+          100: "#BCF549",
+        },
       },
       boxShadow: {
         glow: "0 0 15px rgba(157, 194, 9, 0.2)",
@@ -57,6 +60,9 @@ module.exports = {
       },
       animation: {
         slideIn: "slideIn 0.5s cubic-bezier(0.36, 0, 0.66, -0.56)",
+      },
+      borderRadius: {
+        "4xl": "50px",
       },
     },
   },

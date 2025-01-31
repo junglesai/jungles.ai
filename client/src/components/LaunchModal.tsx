@@ -139,7 +139,7 @@ const LaunchModal: React.FC<LaunchModalProps> = ({ isOpen, onClose, onSuccess })
                 <button
                   type="submit"
                   disabled={!prompt.trim() || isSubmitting}
-                  className="px-6 py-2 bg-yellowgreen-400 hover:bg-yellowgreen-100 text-gray-900 font-medium rounded-lg flex items-center justify-center gap-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed lowercase"
+                  className="px-6 py-2 bg-yellowgreen-100 hover:bg-superyellowgreen-100 text-gray-900 font-medium rounded-lg flex items-center justify-center gap-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed lowercase"
                 >
                   {isSubmitting ? (
                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-900" />

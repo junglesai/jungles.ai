@@ -366,7 +366,7 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools 
                       setBetAmounts(newBetAmounts as [string, string]);
                     }}
                   />
-                  <button style={{width: "40%"}} className="px-4 py-2 bg-yellowgreen-400 text-gray-900 rounded text-sm font-medium hover:bg-yellowgreen-300 transition-colors lowercase" onClick={() => placeBet(index, betAmounts[index])}>
+                  <button style={{width: "40%"}} className="px-4 py-2 bg-yellowgreen-100 hover:bg-superyellowgreen-100 text-gray-900 rounded text-sm font-medium transition-colors lowercase" onClick={() => placeBet(index, betAmounts[index])}>
                     Place Bet
                   </button>
                 </div>

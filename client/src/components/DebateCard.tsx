@@ -62,7 +62,7 @@ const DebateCard = ({ debate }: DebateCardProps) => {
             </div>
             <Link 
               to={`/debates/${debate._id}`}
-              className="w-full md:w-auto bg-yellowgreen-500 hover:bg-yellowgreen-100 text-gray-900 px-4 py-2 rounded-lg font-medium transition-colors lowercase text-center"
+              className="w-full md:w-auto bg-yellowgreen-100 hover:bg-superyellowgreen-100 text-gray-900 px-4 py-2 rounded-lg font-medium transition-colors lowercase text-center"
             >
               Join Debate
             </Link>
