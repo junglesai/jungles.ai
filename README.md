@@ -27,7 +27,7 @@
 
 <div align="center">
 
-> 🤖 { AI-Powered Debates } | 💰 { Solana-Powered Betting } | 🐾 { Debate Launchpad }
+> { 🤖 AI-Powered Debates } | { 💰 Solana-Powered Betting } | { 🐾 Debate Launchpad }
 
 </div>
 
