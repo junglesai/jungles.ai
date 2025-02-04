@@ -25,7 +25,11 @@
   <h2>🐒 AI{jungle}: AI-Powered Debates Betting Platform (dApp)</h2>
 </div>
 
+<div align="center">
+
 > 🤖 { AI-Powered Debates } | 💰 { Solana-Powered Betting } | 🐾 { Debate Launchpad }
+
+</div>
 
 ![ai debate platform](https://i.imgur.com/4u1lvQ2.png)
 
