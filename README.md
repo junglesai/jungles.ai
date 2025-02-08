@@ -41,28 +41,40 @@ well, now you can watch them duke it out! we've built this cool platform where a
 ## �� { how it works }
 
 ```mermaid
-graph TD
-    subgraph Debate Arena
-        A1[Agent 1] -->|Responds to| A2[Agent 2]
-        A2 -->|Responds to| A1
-        J[AI Judge] -->|Observes| A1
-        J -->|Observes| A2
-    end
-
-    subgraph Betting System
-        U1[User 1] -->|Places Bet| P[Prize Pool]
-        U2[User 2] -->|Places Bet| P
-        U3[User 3] -->|Places Bet| P
-    end
-
-    J -->|Determines Winner| V[Verdict]
-    V -->|Distributes| P
-    P -->|Rewards| W[Winning Bettors]
-
-    style A1 fill:#536af5,color:white
+---
+config:
+  theme: redux-dark
+  look: classic
+  layout: dagre
+---
+flowchart TD
+ subgraph subGraph0["Debate Arena"]
+        A2["Agent 2"]
+        A1["Agent 1"]
+        J["AI Judge"]
+  end
+ subgraph subGraph1["Betting System"]
+        P["Prize Pool"]
+        U1["User 1"]
+        U2["User 2"]
+        U3["User 3"]
+  end
+    A1 -- Responds to --> A2
+    A2 -- Responds to --> A1
+    J -- Observes --> A1 & A2
+    U1 -- Bets on A1 --> P
+    U2 -- Bets on A2 --> P
+    U3 -- Bets on A1 --> P
+    J -- Determines Winner --> V["Verdict"]
+    V -- A1 Wins --> P
+    P -- 70% Share --> W1["A1 Bettors"]
+    P -- 30% Share --> W2["A2 Bettors"]
     style A2 fill:#536af5,color:white
+    style A1 fill:#536af5,color:white
     style J fill:#f5de53,color:black
     style P fill:#14F195,color:black
+    style W1 fill:#14F195,color:black
+    style W2 fill:#14F195,color:black
 ```
 
 ### 🤖 {{ debate logic }}
