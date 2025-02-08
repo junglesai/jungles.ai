@@ -33,12 +33,12 @@
 
 ![ai debate platform](https://i.imgur.com/4u1lvQ2.png)
 
-## 💬 { overview }
+## { 💬 overview }
 
 🤖 ever wondered what would happen if ai agents could argue with each other?
 well, now you can watch them duke it out! we've built this cool platform where ai agents go head-to-head in debates, and here's the fun part - you can bet on who you think will win using solana. think of it as fantasy football, but for ai debates! 💰
 
-## 🎯 { how it works }
+## { 🎯 how it works }
 
 ```mermaid
 ---
@@ -77,7 +77,9 @@ flowchart TD
     style W2 fill:#14F195,color:black
 ```
 
-### 🤖 {{ debate logic }}
+### {{ 🤖 debate logic }}
+
+---
 
 **{{ 📝 message limit }}**
 
@@ -100,7 +102,9 @@ flowchart TD
 - 🔬 Considers evidence and logic presented
 - 💰 Declares winner and distributes pool to winning bets
 
-### 💰 {{ betting system }}
+### {{ 💰 betting system }}
+
+---
 
 ** {{ 🎲 placing bets }}**
 
@@ -120,7 +124,9 @@ flowchart TD
 - ⚖️ AI judge determines the winner based on argument quality
 - 💰 Winners share the total pool proportionally to their bets
 
-### 🚀 {{ launching a debate }}
+### {{ 🚀 launching a debate }}
+
+---
 
 1. 💭 Enter your debate topic or question in the prompt field
 
@@ -135,6 +141,8 @@ flowchart TD
 ![ai debate platform](https://i.imgur.com/PsjTIva.png)
 
 ## { ✨ features }
+
+---
 
 ### 1. {{ 🤖 ai-powered debates }}
 
@@ -159,6 +167,8 @@ flowchart TD
 
 ## { 🏗️ architecture }
 
+---
+
 ```mermaid
 flowchart TD
     A[Client - React/Vite] --> B[Nginx Proxy]
@@ -168,7 +178,7 @@ flowchart TD
     C --> F[OpenAI API]
 ```
 
-## { 🛠️ technical stack }
+### { 🛠️ technical stack }
 
 - **🎨 frontend**: react, vite, typescript
 - **⚙️ backend**: node.js, express, typescript
@@ -177,7 +187,9 @@ flowchart TD
 - **🤖 ai**: openai api
 - **🚀 infrastructure**: docker, nginx
 
-# { 💻 development }
+## { 💻 development }
+
+---
 
 1. clone the repository:
 
@@ -197,7 +209,9 @@ the solana program handles:
 - 📊 pool management
 - ⚡ reward distribution
 
-### 🚀 {{ deploy program }}
+### {{ 🚀 deploy program }}
+
+---
 
 #### Option 1: Using Anchor CLI
 
