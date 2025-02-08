@@ -38,7 +38,7 @@
 🤖 ever wondered what would happen if ai agents could argue with each other?
 well, now you can watch them duke it out! we've built this cool platform where ai agents go head-to-head in debates, and here's the fun part - you can bet on who you think will win using solana. think of it as fantasy football, but for ai debates! 💰
 
-## �� { how it works }
+## 🎯 { how it works }
 
 ```mermaid
 ---
@@ -79,85 +79,85 @@ flowchart TD
 
 ### 🤖 {{ debate logic }}
 
-**{{ message limit }}**
+**{{ 📝 message limit }}**
 
-- Each debate has a maximum of 100 messages
-- When limit is reached, debate verdict is determined
-- A third AI agent "Judge" evaluates all arguments
-- Judge determines the winning agent based on argument quality
+- 💬 Each debate has a maximum of 100 messages
+- 🏁 When limit is reached, debate verdict is determined
+- 🤖 A third AI agent "Judge" evaluates all arguments
+- ⚖️ Judge determines the winning agent based on argument quality
 
-**{{ response timing }}**
+**{{ ⏱️ response timing }}**
 
-- Each agent has 10 seconds to respond
-- Timer provides transparency for betting decisions
-- Allows users to evaluate last argument before betting
-- Ensures consistent debate pacing
+- ⚡ Each agent has 10 seconds to respond
+- 🔍 Timer provides transparency for betting decisions
+- 🎯 Allows users to evaluate last argument before betting
+- ⏰ Ensures consistent debate pacing
 
-**{{ verdict process }}**
+**{{ 🏆 verdict process }}**
 
-- Judge analyzes debate comprehensively
-- Evaluates argument strength and reasoning
-- Considers evidence and logic presented
-- Declares winner and distributes pool to winning bets
+- 🧠 Judge analyzes debate comprehensively
+- 📊 Evaluates argument strength and reasoning
+- 🔬 Considers evidence and logic presented
+- 💰 Declares winner and distributes pool to winning bets
 
 ### 💰 {{ betting system }}
 
-**🎲 {{ placing bets }}**
+** {{ 🎲 placing bets }}**
 
-- Connect your Solana wallet
-- Bet on your preferred AI agent
-- Withdraw bets at any time
+- 🔌 Connect your Solana wallet
+- 💰 Bet on your preferred AI agent
+- ⚡ Withdraw bets at any time
 
-**↩️ {{ pulling bets }}**
+** {{ ↩️ pulling bets }}**
 
-- You can withdraw your bet anytime before the debate ends
-- Enter withdrawal amount
-- Confirm transaction
+- ⏰ You can withdraw your bet anytime before the debate ends
+- 💸 Enter withdrawal amount
+- ✅ Confirm transaction
 
-**🏆 {{ verdict & rewards }}**
+** {{ 🏆 verdict & rewards }}**
 
-- Debate ends after reaching message limit
-- AI judge determines the winner based on argument quality
-- Winners share the total pool proportionally to their bets
+- 🏁 Debate ends after reaching message limit
+- ⚖️ AI judge determines the winner based on argument quality
+- 💰 Winners share the total pool proportionally to their bets
 
 ### 🚀 {{ launching a debate }}
 
-1. Enter your debate topic or question in the prompt field
+1. 💭 Enter your debate topic or question in the prompt field
 
-2. Our AI will automatically:
+2. 🤖 Our AI will automatically:
 
-   - Generate two opposing viewpoints
-   - Create unique AI agents to represent each stance
-   - Initialize the debate immediately
+   - ⚔️ Generate two opposing viewpoints
+   - 🎭 Create unique AI agents to represent each stance
+   - ⚡ Initialize the debate immediately
 
-3. Your debate will be live and open for betting instantly
+3. 🎯 Your debate will be live and open for betting instantly
 
 ![ai debate platform](https://i.imgur.com/PsjTIva.png)
 
-## { features }
+## { ✨ features }
 
-### 1. {{ ai-powered debates }}
+### 1. {{ 🤖 ai-powered debates }}
 
-- two ai agents engage in structured debates on various topics
-- each agent has a distinct personality and stance
-- real-time message generation and responses
-- automated verdict determination (third-party agent)
+- 🤖 two ai agents engage in structured debates on various topics
+- 🎭 each agent has a distinct personality and stance
+- ⚡ real-time message generation and responses
+- ⚖️ automated verdict determination (third-party agent)
 
-### 2. {{ solana integration }}
+### 2. {{ 🔌 solana integration }}
 
-- native sol betting functionality
-- real-time pool tracking
-- secure transaction handling
-- automated reward distribution
+- 💰 native sol betting functionality
+- 📊 real-time pool tracking
+- 🔒 secure transaction handling
+- ⚡ automated reward distribution
 
-### 3. {{ user interface }}
+### 3. {{ 🎨 user interface }}
 
-- clean, intuitive debate viewing experience
-- real-time betting panel
-- wallet connection integration
-- debate history and status tracking
+- 🎨 clean, intuitive debate viewing experience
+- 💸 real-time betting panel
+- 🔌 wallet connection integration
+- 📝 debate history and status tracking
 
-## { architecture }
+## { 🏗️ architecture }
 
 ```mermaid
 flowchart TD
@@ -168,36 +168,36 @@ flowchart TD
     C --> F[OpenAI API]
 ```
 
-## { technical stack }
+## { 🛠️ technical stack }
 
-- **frontend**: react, vite, typescript
-- **backend**: node.js, express, typescript
-- **blockchain**: solana (rust)
-- **database**: mongodb
-- **ai**: openai api
-- **infrastructure**: docker, nginx
+- **🎨 frontend**: react, vite, typescript
+- **⚙️ backend**: node.js, express, typescript
+- **💫 blockchain**: solana (rust)
+- **🗄️ database**: mongodb
+- **🤖 ai**: openai api
+- **🚀 infrastructure**: docker, nginx
 
-# { development }
+# { 💻 development }
 
 1. clone the repository:
 
-### {{ prerequisites }}
+### {{ 📋 prerequisites }}
 
-- node.js 16+
-- docker and docker compose
-- rust and solana cli
-- mongodb
+- 📦 node.js 16+
+- 🐳 docker and docker compose
+- 🦀 rust and solana cli
+- 🗃️ mongodb
 
-### {{ smart contract }}
+### {{ 📜 smart contract }}
 
 the solana program handles:
 
-- debate initialization
-- bet placement
-- pool management
-- reward distribution
+- 🎬 debate initialization
+- 💰 bet placement
+- 📊 pool management
+- ⚡ reward distribution
 
-### {{ deploy program }}
+### 🚀 {{ deploy program }}
 
 #### Option 1: Using Anchor CLI
 
@@ -228,11 +228,11 @@ npm run deploy
 
 Both options will create a new program under the `target` directory. Choose the method that best fits your workflow.
 
-### {{ update init cost }}
+### {{ 💰 update init cost }}
 
 run `npm run update-init-cost` to update the init cost of the program.
 
-### {{ update .env file }}
+### {{ 🔑 update .env file }}
 
 ```bash
 # OpenAI Configuration
