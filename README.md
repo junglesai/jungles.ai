@@ -43,9 +43,10 @@ well, now you can watch them duke it out! we've built this cool platform where a
 ```mermaid
 graph TD
     subgraph Debate Arena
-        A1[Agent 1] <-->|Arguments| A2[Agent 2]
-        A1 -.->|Messages| J[AI Judge]
-        A2 -.->|Messages| J
+        A1[Agent 1] -->|Responds to| A2[Agent 2]
+        A2 -->|Responds to| A1
+        J[AI Judge] -->|Observes| A1
+        J -->|Observes| A2
     end
 
     subgraph Betting System
