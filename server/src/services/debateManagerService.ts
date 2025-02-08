@@ -51,15 +51,17 @@ class DebateManager extends EventEmitter {
     }
   }
 
-  private async continueDebate(debateId: string) {
+   async continueDebate(debateId: string) {
     try {
       const debate = await Debate.findById(debateId);
       if (!debate || debate.status === 'paused' || debate.status === 'completed') return;
 
       // Check if there's a typing message
       const hasTypingMessage = debate.messages.some((msg: { status: string }) => msg.status === 'typing');
-      if (hasTypingMessage) return;
-
+      if (hasTypingMessage && debate.messages[debate.messages.length - 1].timestamp > new Date(Date.now() - 45000)) {
+        return;
+      } 
+        
       // Check if message limit reached
       if (debate.messages.filter((m: { status: string }) => m.status === 'answered').length >= debate.messageLimit) {
         await this.generateVerdict(debate);
@@ -83,6 +85,12 @@ class DebateManager extends EventEmitter {
       };
       debate.messages.push(typingMessage);
       await debate.save();
+
+      if (debate.messages.length > 1) {
+        const delay = parseInt(process.env.VITE_DEBATE_DELAY || '10000');
+        await new Promise(resolve => setTimeout(resolve, delay));
+      }
+
       this.emit('newMessage', { debateId, message: typingMessage });
 
       // Generate response
@@ -98,13 +106,14 @@ class DebateManager extends EventEmitter {
       };
       debate.messages[messageIndex] = answeredMessage;
       debate.messages.length++;
+      const timer = 1000;
       await debate.save().then(() => {
         this.emit('newMessage', { debateId, message: answeredMessage });
         
         // Schedule next message only after save and emit
             const timeout = setTimeout(() => {
             this.continueDebate(debateId);
-            }, 1000);
+            }, timer);
         
         this.activeDebates.set(debateId, timeout);
       });

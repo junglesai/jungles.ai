@@ -170,7 +170,6 @@ function App() {
     return () => observer.disconnect();
   }, [pagination.nextLastId]);
 
-  // Initial fetch and polling
   useEffect(() => {
     if (window.location.pathname === '/') {
       fetchDebates();
@@ -179,8 +178,12 @@ function App() {
       }, POLL_INTERVAL);
   
       return () => clearInterval(interval);
+    } else {
+      fetchDebates();
     }
-  }, [sortBy, searchTerm]); // Reset polling when sort or search changes
+  }, [sortBy, searchTerm]); 
+
+
 
   const ca = import.meta.env.VITE_CA;
   return (

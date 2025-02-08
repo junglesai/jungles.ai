@@ -36,37 +36,42 @@ const LaunchModal: React.FC<LaunchModalProps> = ({ isOpen, onClose, onSuccess })
   const [toast, setToast] = useState<{ message: string; type: ToastType } | null>(null);
   const [prompt, setPrompt] = React.useState('');
   const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [successData, setSuccessData] = useState<{ id: string; title: string } | null>(null);
 
   if (!isOpen) return null;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSuccessData(null);
 
     if (!connected || !publicKey) {
         setVisible(true);
         return;
-      }
+    }
 
     try {
         const mode = import.meta.env.VITE_MODE;
         const connection = new Connection(mode === 'dev' ? import.meta.env.VITE_SOLANA_DEVNET_RPC_URL : import.meta.env.VITE_SOLANA_MAINNET_RPC_URL);
-       const onChainDebate = await initializeDebateOnChain(connection, publicKey, sendTransaction);
-       if (!onChainDebate) {
-        console.error('Error initializing debate on chain');
-        setToast({
-          message: 'Error initializing debate on chain',
-          type: 'error',
+        const onChainDebate = await initializeDebateOnChain(connection, publicKey, sendTransaction);
+        if (!onChainDebate) {
+          console.error('Error initializing debate on chain');
+          setToast({
+            message: 'Error initializing debate on chain',
+            type: 'error',
+          });
+          return;
+        }
+
+        const { signature, debateAddress, agent1, agent2 } = onChainDebate;
+        const response = await axios.post('/api/debates/create', { signature, debateAddress, agent1, agent2, prompt });
+        
+        setPrompt('');
+        setSuccessData({
+          id: response.data._id,
+          title: response.data.title
         });
-        return;
-       }
-
-     const { signature, debateAddress, agent1, agent2 } = onChainDebate;
-     const response = await axios.post('/api/debates/create', { signature, debateAddress, agent1, agent2, prompt });
-
-     setPrompt('');
-      onClose();
-      onSuccess();
+        onSuccess();
     } catch (error) {
       console.error('Error creating debate:', error);
       setToast({
@@ -83,7 +88,7 @@ const LaunchModal: React.FC<LaunchModalProps> = ({ isOpen, onClose, onSuccess })
       {/* Backdrop */}
       <div 
         className="fixed inset-0 bg-black bg-opacity-75 transition-opacity"
-        onClick={onClose}
+        onClick={!successData ? onClose : undefined}
       />
 
       {/* Modal */}
@@ -111,9 +116,38 @@ const LaunchModal: React.FC<LaunchModalProps> = ({ isOpen, onClose, onSuccess })
 
           {/* Content */}
           <div className="mt-3 sm:mt-0">
-            <h3 className="text-lg font-medium leading-6 text-white mb-4 flex sm:justify-start justify-center items-center gap-2 lowercase">
-             {"{"} <SparkleIcon /> launch new debate {"}"}
-            </h3>
+            {successData ? (
+              <div className="text-center py-6">
+                <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-yellowgreen-100 mb-4">
+                  <SparkleIcon />
+                </div>
+                <h3 className="text-lg font-medium text-white mb-2 lowercase">
+                  debate created successfully!
+                </h3>
+                <p className="text-sm text-gray-400 mb-4 lowercase">
+                  your ai debate is ready to begin
+                </p>
+                <div className="flex justify-center gap-3">
+                  <button
+                    onClick={onClose}
+                    className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors lowercase"
+                  >
+                    close
+                  </button>
+                  <a
+                    href={`/debates/${successData.id}`}
+                    className="px-6 py-2 bg-yellowgreen-100 hover:bg-superyellowgreen-100 text-gray-900 font-medium rounded-lg flex items-center justify-center gap-2 transition-colors lowercase"
+                  >
+                    <SparkleIcon />
+                    view debate
+                  </a>
+                </div>
+              </div>
+            ) : (
+              <h3 className="text-lg font-medium leading-6 text-white mb-4 flex sm:justify-start justify-center items-center gap-2 lowercase">
+               {"{"} <SparkleIcon /> launch new debate {"}"}
+              </h3>
+            )}
             <p className="text-sm text-gray-400 mb-4 sm:text-left text-center lowercase">
               Describe your debate and we'll generate it using AI.
             </p>

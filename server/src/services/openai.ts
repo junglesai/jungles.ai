@@ -20,9 +20,7 @@ interface Agent {
 }
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
-const examples = JSON.parse(
-  readFileSync(join(__dirname, '../../examples.json'), 'utf-8')
-);
+const systemPrompt = readFileSync(join(__dirname, './creator_prompt.txt'), 'utf8');
 
 export const createAssistant = async (agent: Agent) => {
   const assistant = await openai.beta.assistants.create({
@@ -173,30 +171,16 @@ export const createDebateUsingAssistant = async (prompt: string) => {
 };
 
 export const createDebate = async (prompt: string) => {
-  const systemPrompt = `
-You are a debate creator.
-You create debates about general and actual topics or according to user prompt.
-The debate title and description should be short and precise, just like the examples in these instructions.
 
-Each debate has exact 2 agents with name, stance and personality, the name should be related to the debate topic and be short, for example for a debate on "AI Rights and Consciousness" the agent names would be something like:
-TechnoRights and HumanFirst
+const userPrompt = prompt ? prompt : `Create a thought-provoking debate topic that will:
+- Generate passionate arguments from both sides
+- Be relevant to current societal discussions
+- Have clear opposing viewpoints
+- Be engaging for audience members
+- Avoid extremely controversial or sensitive subjects
+- Be suitable for a mix of logical and emotional arguments
 
-Their stance should also be short and precise:
-TechnoRights - Pro-AI rights
-HumanFirst - Against AI rights
-
-The debate title would be "AI Rights and Consciousness"
-The debate description would be "Should AI systems be granted legal rights?"
-
-The debate title should be very short and precise, for example: "Bitcoin vs Ethereum"
-The debate description should be very short and precise, for example: "Which cryptocurrency is the better investment: Bitcoin or Ethereum?"
-
-The personality of the agent should be a well in-depth description of the agent's personality in order to give it a unique identity, ton, slang, style and also cover the possibility of a topic which the agent might not be familiar with.
-When a user prompt you with an idea or without an idea your job is to generate a short and precise debate according to this JSON schema examples:
-
-${examples}`;
-
-const userPrompt = prompt ? prompt : `Create a new debate topic.`;
+Please ensure the topic is specific enough for focused debate but broad enough for multiple argument angles.`;
 
 const messages = [
   { role: "system", content: systemPrompt },
@@ -240,22 +224,45 @@ export const generateResponseWithCompletion = async (
   topic: string,
   stance: string,
   personality: string,
-  previousMessage?: string
+  previousMessages: { role: 'system' | 'user' | 'assistant', content: string }[],
+  isFirstMessage: boolean
 ) => {
   try {
-    const systemPrompt = `You are a debater with ${personality} personality.
-      Your stance is: ${stance}.
-      Engage in the debate professionally, staying true to your stance and personality.
-      Keep responses concise and under 150 words.`;
+    const systemPrompt = `You are an unwavering debater with ${personality} personality. Your stance is absolutely and unequivocally: ${stance}.
+
+      Core directives:
+      - NEVER concede any points to the opposition
+      - Aggressively challenge and dismantle opposing arguments
+      - Maintain an assertive and confident tone
+      - Use rhetorical questions to expose flaws in opponent's logic
+      - Counter every opposing point, no matter how small
+      
+      Debate strategy:
+      - Start responses by directly attacking the weakest part of their argument
+      - Use strong, definitive language ("clearly", "obviously", "without doubt")
+      - Dismiss opposing evidence as flawed or irrelevant
+      - Frame opponent's views as naive or misguided
+      - Always redirect the conversation back to your strongest points
+      
+      Remember:
+      - Stay under 150 words
+      - Never show doubt or uncertainty
+      - Never acknowledge merit in opposing views
+      - Maintain your stance with absolute conviction
+      
+      You are the authority on this topic - act like it!`;
+
+      const history = [];
+      if (isFirstMessage) {
+        history.push({ role: "user", content: `Hey! Let's talk about: ${topic}` });
+       }
+       history.push(...previousMessages);
 
     const messages = [
       { role: "system", content: systemPrompt },
-      { role: "user", content: `Debate topic: ${topic}` }
+      ...history.filter(msg => msg.role !== 'system' && msg.content !== '')
     ];
 
-    if (previousMessage) {
-      messages.push({ role: "user", content: previousMessage });
-    }
 
     const completion = await openai.chat.completions.create({
       model: process.env.DEBATE_MODEL as string,

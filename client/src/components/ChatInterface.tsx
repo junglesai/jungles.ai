@@ -140,10 +140,10 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ messages, setMessages, de
     return () => clearInterval(interval);
   }, [debate?.solanaAddress]);
 
-  useEffect(() => {
-    // stopDebate();
-    // clearThread();
-  }, []);
+  // useEffect(() => {
+  //   stopDebate();
+  //   clearThread();
+  // }, []);
 
   return (
     <div className="flex flex-col h-[930px] bg-gray-900 rounded-lg shadow-xl">

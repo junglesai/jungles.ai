@@ -64,6 +64,10 @@ module.exports = {
       borderRadius: {
         "4xl": "50px",
       },
+      listStyleType: {
+        square: "square",
+        "lower-roman": "lower-roman",
+      },
     },
   },
   plugins: [],

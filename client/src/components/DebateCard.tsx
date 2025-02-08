@@ -39,7 +39,7 @@ const DebateCard = ({ debate }: DebateCardProps) => {
               </div>
             ))}
           </div>
-          <a href={`https://solscan.io/address/${debate.solanaAddress}`} target="_blank" className="text-xs text-gray-400 hover:text-yellowgreen-400">{debate.solanaAddress}</a>
+          <a href={`https://solscan.io/address/${debate.solanaAddress}`} target="_blank" className="text-xs text-gray-400 hover:text-yellowgreen-400 break-all">{debate.solanaAddress}</a>
           <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mt-4">
             <div className="flex items-center justify-between gap-3">
             {/* <span className={`lowercase px-3 py-1 rounded-full text-sm uppercase tracking-wider ${

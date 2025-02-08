@@ -5,11 +5,19 @@ export const generateNextMessage = async (debateId: string, agent: { name: strin
   const debate = await Debate.findById(debateId);
   if (!debate) throw new Error('Debate not found');
 
+  // Convert debate messages to ChatGPT message format with proper roles
+  const messageHistory = debate.messages.map((msg: { agentId: string, content: string }) => ({
+    role: msg.agentId === agent.name ? 'assistant' : 'user',
+    content: msg.content
+  }));
+
+
   const response = await generateResponseWithCompletion(
     debate.title,
     agent.stance,
     agent.personality,
-    lastMessage?.content
+    messageHistory,
+    messageHistory.length === 0 // Pass isFirstMessage flag
   );
   return response;
 };

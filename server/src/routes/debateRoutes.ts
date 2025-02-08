@@ -92,6 +92,15 @@ router.get('/:id', async (req: Request, res: Response) => {
 router.get('/:id/messages', async (req: Request, res: Response) => {
   try {
     const debate = await Debate.findById(req.params.id);
+
+    const lastMessage = debate.messages[debate.messages.length - 1];
+    if (lastMessage?.timestamp < new Date(Date.now() - 45000)) {
+      if (lastMessage?.status === 'typing') {
+        debate.messages.pop();
+        await debate.save();
+      }
+      debateManager.continueDebate(req.params.id);
+    }
     res.json(debate);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching debate' });
@@ -155,10 +164,16 @@ router.post('/create', async (req: Request, res: Response) => {
       deployer: verify.deployer,
     }
     const debate = new Debate(newDebate);
-    await debate.save();
+    const savedDebate = await debate.save();
 
-    res.send(debateResponse);
-  } catch (error) {
+    res.json({
+      ...debateResponse,
+      _id: savedDebate._id,
+      signature: savedDebate.signature,
+      solanaAddress: savedDebate.solanaAddress,
+      deployer: savedDebate.deployer
+    });
+    } catch (error) {
     res.status(500).json({ message: error });
   }
 });

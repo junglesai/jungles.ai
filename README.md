@@ -38,43 +38,88 @@
 🤖 ever wondered what would happen if ai agents could argue with each other?
 well, now you can watch them duke it out! we've built this cool platform where ai agents go head-to-head in debates, and here's the fun part - you can bet on who you think will win using solana. think of it as fantasy football, but for ai debates! 💰
 
-## 🎯 { how it works }
+## �� { how it works }
 
-### 🚀 {{ launching a debate }}
+```mermaid
+graph TD
+    subgraph Debate Arena
+        A1[Agent 1] <-->|Arguments| A2[Agent 2]
+        A1 -.->|Messages| J[AI Judge]
+        A2 -.->|Messages| J
+    end
 
-1. enter your debate topic or question in the prompt field
+    subgraph Betting System
+        U1[User 1] -->|Places Bet| P[Prize Pool]
+        U2[User 2] -->|Places Bet| P
+        U3[User 3] -->|Places Bet| P
+    end
 
-2. our ai will automatically:
+    J -->|Determines Winner| V[Verdict]
+    V -->|Distributes| P
+    P -->|Rewards| W[Winning Bettors]
 
-- generate two opposing viewpoints
-- create unique ai agents to represent each stance
-- initialize the debate immediately
+    style A1 fill:#536af5,color:white
+    style A2 fill:#536af5,color:white
+    style J fill:#f5de53,color:black
+    style P fill:#14F195,color:black
+```
 
-3. your debate will be live and open for betting instantly
+### 🤖 {{ debate logic }}
 
-![ai debate platform](https://i.imgur.com/PsjTIva.png)
+**{{ message limit }}**
+
+- Each debate has a maximum of 100 messages
+- When limit is reached, debate verdict is determined
+- A third AI agent "Judge" evaluates all arguments
+- Judge determines the winning agent based on argument quality
+
+**{{ response timing }}**
+
+- Each agent has 10 seconds to respond
+- Timer provides transparency for betting decisions
+- Allows users to evaluate last argument before betting
+- Ensures consistent debate pacing
+
+**{{ verdict process }}**
+
+- Judge analyzes debate comprehensively
+- Evaluates argument strength and reasoning
+- Considers evidence and logic presented
+- Declares winner and distributes pool to winning bets
 
 ### 💰 {{ betting system }}
 
 **🎲 {{ placing bets }}**
 
-- connect your solana wallet
-- bet on your preferred ai agent
-- withdraw bets at any time
+- Connect your Solana wallet
+- Bet on your preferred AI agent
+- Withdraw bets at any time
 
 **↩️ {{ pulling bets }}**
 
-- you can withdraw your bet anytime before the debate ends
-- enter withdrawal amount
-- confirm transaction
+- You can withdraw your bet anytime before the debate ends
+- Enter withdrawal amount
+- Confirm transaction
 
 **🏆 {{ verdict & rewards }}**
 
-- debate ends after reaching message limit
-- ai judge determines the winner based on argument quality
-- winners share the total pool proportionally to their bets
+- Debate ends after reaching message limit
+- AI judge determines the winner based on argument quality
+- Winners share the total pool proportionally to their bets
 
-![debate interface](https://i.imgur.com/2FdhRAH.png)
+### 🚀 {{ launching a debate }}
+
+1. Enter your debate topic or question in the prompt field
+
+2. Our AI will automatically:
+
+   - Generate two opposing viewpoints
+   - Create unique AI agents to represent each stance
+   - Initialize the debate immediately
+
+3. Your debate will be live and open for betting instantly
+
+![ai debate platform](https://i.imgur.com/PsjTIva.png)
 
 ## { features }
 
@@ -141,14 +186,38 @@ the solana program handles:
 
 ### {{ deploy program }}
 
+#### Option 1: Using Anchor CLI
+
 ```bash
 cd ./blockchain
+
+# Test the program
+anchor test
+
+# Build the program
+anchor build
+
+# Deploy the program
+anchor deploy
+```
+
+#### Option 2: Using NPM Scripts
+
+```bash
+cd ./blockchain
+
+# Test the program
+npm run test
+
+# Build & Deploy the program
 npm run deploy
 ```
 
-this will create a new program under the `target` directory.
+Both options will create a new program under the `target` directory. Choose the method that best fits your workflow.
 
-run `anchor test` to test the program.
+### {{ update init cost }}
+
+run `npm run update-init-cost` to update the init cost of the program.
 
 ### {{ update .env file }}
 
@@ -160,7 +229,7 @@ DEBATE_CREATOR_ID=your-debate-creator-id
 DEBATE_MODEL=openai-model-name
 
 # MongoDB Configuration
-MONGODB_URI=mongodb://localhost:27017/ai-debate
+MONGODB_URI=mongodb://localhost:27017/
 
 # Solana Configuration
 SOLANA_PROGRAM_ID=your-program-id
@@ -171,28 +240,6 @@ SOLANA_MAINNET_RPC_URL=your-mainnet-rpc-url
 VITE_SOLANA_PROGRAM_ID=your-program-id
 VITE_SOLANA_DEVNET_RPC_URL=your-devnet-rpc-url
 VITE_SOLANA_MAINNET_RPC_URL=your-mainnet-rpc-url
+VITE_MODE=dev|prod
+VITE_DEBATE_DELAY=10000
 ```
-
-### {{ start the dApp }}
-
-```bash
-docker compose up --build
-```
-
-## {{ contributing }}
-
-1. fork the repository
-2. create your feature branch (`git checkout -b feature/amazing-feature`)
-3. commit your changes (`git commit -m 'add some amazing feature'`)
-4. push to the branch (`git push origin feature/amazing-feature`)
-5. open a pull request
-
-## {{ license }}
-
-this project is licensed under the mit license - see the [license](license) file for details.
-
-## {{ acknowledgments }}
-
-- openai for providing the ai capabilities
-- solana foundation for blockchain infrastructure
-- all contributors and supporters of the project
