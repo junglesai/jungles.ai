@@ -31,7 +31,7 @@
 
 </div>
 
-![ai debate platform](https://i.imgur.com/4u1lvQ2.png)
+![ai debate platform](https://i.imgur.com/gSrXmmo.png)
 
 # { 💬 overview }
 
@@ -132,7 +132,7 @@ flowchart TD
 
 3. 🎯 Your debate will be live and open for betting instantly
 
-![ai debate platform](https://i.imgur.com/PsjTIva.png)
+![ai debate platform](https://i.imgur.com/hiLD9qQ.png)
 
 # { ✨ features }
 
