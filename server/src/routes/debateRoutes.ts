@@ -94,7 +94,7 @@ router.get('/:id/messages', async (req: Request, res: Response) => {
     const debate = await Debate.findById(req.params.id);
 
     const lastMessage = debate.messages[debate.messages.length - 1];
-    if (lastMessage?.timestamp < new Date(Date.now() - 45000)) {
+    if (lastMessage?.timestamp < new Date(Date.now() - 45000) && debate.status === 'active') {
       if (lastMessage?.status === 'typing') {
         debate.messages.pop();
         await debate.save();

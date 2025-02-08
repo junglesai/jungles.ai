@@ -18,8 +18,8 @@ const Header = ({ ownedDebates }: { ownedDebates: Array<any> }) => {
       <nav className="max-w-7xl mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           <div className="flex items-center space-x-4">
-            <a href="/" className="flex items-center space-x-2">
-              <img src={monkeyLogo} alt="AI Debates Logo" className="h-10 w-10" />
+            <a href="/" className="flex items-center space-x-1">
+              <img src={monkeyLogo} alt="AI Debates Logo" className="h-10 w-10 mt-1" />
               <span className="text-yellowgreen-100 text-2xl font-bold courier">{"AI{jungle}"}</span>
             </a>       
             <div className="hidden md:flex items-center space-x-3">
