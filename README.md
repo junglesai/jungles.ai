@@ -159,6 +159,8 @@ flowchart TD
 
 # { 🦇 dev cave }
 
+- 📝 open for collaboration - dev@aijungle.fun
+
 ## { 🏗️ architecture }
 
 ```mermaid
