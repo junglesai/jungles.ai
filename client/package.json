@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@coral-xyz/anchor": "^0.30.1",
+    "@dicebear/collection": "^9.2.2",
+    "@dicebear/core": "^9.2.2",
     "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
     "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.2.0",
@@ -24,6 +26,7 @@
     "@solana/web3.js": "^1.98.0",
     "axios": "^1.7.9",
     "buffer": "^6.0.3",
+    "clsx": "^2.1.1",
     "js-sha256": "^0.11.0",
     "lucide-react": "^0.469.0",
     "react": "^18.3.1",

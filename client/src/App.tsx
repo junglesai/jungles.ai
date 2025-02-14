@@ -14,6 +14,7 @@ interface Debate {
   title: string;
   description: string;
   agents: Array<{
+    _id: string;
     name: string;
     stance: string;
   }>;
@@ -314,7 +315,7 @@ function App() {
 
                 {/* Debate Cards Grid */}
                 {loading ? (
-                  <div className="flex justify-center items-center h-64">
+                  <div className="flex justify-center items-center h-72">
                     <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-yellowgreen-400"></div>
                   </div>
                 ) : debates.length === 0 ? (

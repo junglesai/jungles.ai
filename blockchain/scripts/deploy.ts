@@ -8,7 +8,9 @@ import { Wallet } from "@coral-xyz/anchor";
 
 const PROGRAM_NAME = 'ai_debate';
 const PROGRAM_ID_PATH = path.join(__dirname, '..', 'program_id.json');
-process.env.ANCHOR_PROVIDER_URL = "https://api.devnet.solana.com";
+// process.env.ANCHOR_PROVIDER_URL = "https://api.devnet.solana.com";
+// Change devnet to mainnet-beta
+process.env.ANCHOR_PROVIDER_URL = "https://api.mainnet-beta.solana.com";
 process.env.ANCHOR_WALLET = path.join(__dirname, "..", "deploy-wallet.json");
 
 async function main() {

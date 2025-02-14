@@ -30,11 +30,72 @@
 
     gtag('config', 'G-5W0WBBV9N1');
   </script>
+  <link rel="preload" href="/path-to-your-icons.woff2" as="font" type="font/woff2" crossorigin>
 </head>
 
 <body>
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-animation"></div>
+  </div>
   <div id="root"></div>
   <script type="module" src="/src/main.tsx"></script>
+  <style>
+    body {
+      margin: 0;
+      background-color: #111827;
+      /* Your dark theme color */
+      min-height: 100vh;
+    }
+
+    #root {
+      min-height: 100vh;
+    }
+
+    /* Loading animation */
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #111827;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .loading-animation {
+      width: 50px;
+      height: 50px;
+      border: 3px solid #9DC209;
+      border-radius: 50%;
+      border-top-color: transparent;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Add any critical styles needed for initial render */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      color-scheme: dark;
+    }
+  </style>
+  <script>
+    window.addEventListener('load', function () {
+      document.getElementById('loading-screen').style.display = 'none';
+    });
+  </script>
 </body>
 
 </html>

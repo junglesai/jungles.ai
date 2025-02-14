@@ -7,11 +7,11 @@ import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import Toast, { ToastType } from './Toast';
 import axios from 'axios';
 import SlotCounter from 'react-slot-counter';
-
+import AvatarComponent from './Avatar';
 
 interface Props {
   debateId: string;
-  agents: Array<{ name: string; stance: string }>;
+  agents: Array<{ _id: string; name: string; stance: string }>;
   status: string;
   onPoolsUpdate: () => void;
   poolSize: number;
@@ -342,7 +342,10 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools 
         {agents.map((agent, index) => (
           <div key={agent.name} className="bg-gray-700 rounded-lg p-4">
             <div className="flex justify-between items-center">
-              <div className="text-white font-medium">{"{"} {agent.name} {"}"}</div>
+              <div className="flex items-center gap-1">
+                <AvatarComponent seed={agent._id} hideOnMobile={true} />
+                <div className="text-white font-medium">{"{"} {agent.name} {"}"}</div>
+              </div>
               <div className="text-sm bg-gray-600 px-3 py-1 rounded-full">
                 {"{"} {(index === 0 ? agentPools[0] / LAMPORTS_PER_SOL : agentPools[1] / LAMPORTS_PER_SOL).toFixed(2)} SOL {"}"}
               </div>

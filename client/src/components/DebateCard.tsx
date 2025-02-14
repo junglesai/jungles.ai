@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom';
 import SlotCounter from 'react-slot-counter';
-
+import AvatarComponent from './Avatar';
 interface DebateCardProps {
   debate: {
     _id: string;
     title: string;
     description: string;
     agents: Array<{
+      _id: string;
       name: string;
       stance: string;
     }>;
@@ -34,12 +35,20 @@ const DebateCard = ({ debate }: DebateCardProps) => {
           <div className="space-y-3 mb-2">
             {debate.agents.map((agent, index) => (
               <div key={index} className="flex items-center justify-between bg-gray-700 p-3 rounded">
-                <span className="text-gray-200 font-medium text-sm">{agent.name}</span>
-                <span className="text-xs text-yellowgreen-400 lowercase text-right">{agent.stance}</span>
+                <div className="flex items-center justify-between gap-2 w-full">
+                  <div className="flex items-center gap-2">
+                    <AvatarComponent seed={agent._id} size={32} />
+                    <div className="flex flex-col">
+                      <span className="text-gray-200 font-medium text-sm">{agent.name}</span>
+                      <span className="text-xs text-yellowgreen-400 lowercase text-left sm:hidden">{agent.stance}</span>
+                    </div>
+                  </div>
+                  <span className="text-xs text-yellowgreen-400 lowercase text-right hidden sm:block ml-auto">{agent.stance}</span>
+                </div>
               </div>
             ))}
           </div>
-          <a href={`https://solscan.io/address/${debate.solanaAddress}`} target="_blank" className="text-xs text-gray-400 hover:text-yellowgreen-400 break-all">{debate.solanaAddress}</a>
+          {/* <a href={`https://solscan.io/address/${debate.solanaAddress}`} target="_blank" className="text-xs text-gray-400 hover:text-yellowgreen-400 break-all">{debate.solanaAddress}</a> */}
           <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mt-4">
             <div className="flex items-center justify-between gap-3">
             {/* <span className={`lowercase px-3 py-1 rounded-full text-sm uppercase tracking-wider ${

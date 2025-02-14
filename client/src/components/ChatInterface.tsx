@@ -232,6 +232,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ messages, setMessages, de
                 timestamp: new Date(message.timestamp)
               }}
               isFirstAgent={message.agentId === debate?.agents[0].name}
+              agents={debate?.agents}
             />
           ))
         ) : (
