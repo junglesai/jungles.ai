@@ -250,6 +250,7 @@ MONGODB_URI=mongodb://localhost:27017/
 
 # Solana Configuration
 SOLANA_PROGRAM_ID=your-program-id
+SOLANA_JUNGLE_PDA=your-jungle-pda
 SOLANA_DEVNET_RPC_URL=your-devnet-rpc-url
 SOLANA_MAINNET_RPC_URL=your-mainnet-rpc-url
 
@@ -259,4 +260,36 @@ VITE_SOLANA_DEVNET_RPC_URL=your-devnet-rpc-url
 VITE_SOLANA_MAINNET_RPC_URL=your-mainnet-rpc-url
 VITE_MODE=dev|prod
 VITE_DEBATE_DELAY=10000
+```
+
+### {{ </> dapp scripts }}
+
+#### {{ 🛠️ build }}
+
+```bash
+# Dev environment
+./scripts/build-dev.sh
+
+# Prod environment
+./scripts/build.sh
+```
+
+#### {{ 🚀 start }}
+
+```bash
+# Dev environment
+./scripts/start-dev.sh
+
+# Prod environment
+./scripts/start.sh
+```
+
+#### {{ 🗄️ init db collection and start }}
+
+```bash
+# Dev environment
+./scripts/init-dev.sh
+
+# Prod environment
+./scripts/init.sh
 ```
