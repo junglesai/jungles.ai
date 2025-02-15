@@ -148,9 +148,10 @@ const LaunchModal: React.FC<LaunchModalProps> = ({ isOpen, onClose, onSuccess })
                {"{"} <SparkleIcon /> launch new debate {"}"}
               </h3>
             )}
-            <p className="text-sm text-gray-400 mb-4 sm:text-left text-center lowercase">
+            <p className="text-sm text-gray-400 sm:text-left text-center lowercase mb-4 sm:mb-0">
               Describe your debate and we'll generate it using AI.
             </p>
+            <p className="text-gray-400 text-xs mt-2 mb-4 sm:text-left text-center hidden sm:block">you will receive 1% of the total pool</p>
             <form onSubmit={handleSubmit}>
               <textarea
                 rows={4}
@@ -160,6 +161,8 @@ const LaunchModal: React.FC<LaunchModalProps> = ({ isOpen, onClose, onSuccess })
                 onChange={(e) => setPrompt(e.target.value)}
                 disabled={isSubmitting}
               />
+              <p className="text-gray-400 text-xs mt-2 mb-4 sm:text-left text-center block sm:hidden">you will receive 1% of the total pool</p>
+
               <div className="mt-4 flex sm:justify-end justify-center gap-3">
                 <button
                   type="button"
