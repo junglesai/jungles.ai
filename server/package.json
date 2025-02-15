@@ -5,7 +5,7 @@
   "scripts": {
     "start": "NODE_ENV=production NODE_OPTIONS='--loader ts-node/esm' node src/index.ts",
     "dev": "nodemon -e ts --exec \"NODE_OPTIONS='--loader ts-node/esm --trace-uncaught' node\" src/index.ts",
-    "dev:init": "nodemon -e ts --exec \"NODE_OPTIONS='--loader ts-node/esm --trace-uncaught' node\" src/scripts/initialize.ts",
+    "dev:init": "NODE_OPTIONS='--loader ts-node/esm' node src/scripts/initialize.ts && NODE_OPTIONS='--loader ts-node/esm' nodemon src/index.ts",
     "start:init": "NODE_OPTIONS='--loader ts-node/esm' node src/scripts/initialize.ts && NODE_OPTIONS='--loader ts-node/esm' node src/index.ts",
     "start:generate": "NODE_OPTIONS='--loader ts-node/esm' node src/scripts/generateDebates.ts && NODE_OPTIONS='--loader ts-node/esm' node src/index.ts",
     "seed": "node --loader ts-node/esm src/scripts/seedTopics.ts"

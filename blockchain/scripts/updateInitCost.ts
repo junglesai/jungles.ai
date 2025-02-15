@@ -38,7 +38,7 @@ async function updateInitCost() {
     const jungleAccount = await program.account.jungle.fetch(junglePda);
     console.log("Jungle authority:", jungleAccount.authority.toString());
     console.log("Current init cost:", jungleAccount.initCost.toString());
-    
+    console.log("Signer:", provider.publicKey.toString());
     // Update cost
     const tx = await program.methods
       .updateInitCost(newCost)

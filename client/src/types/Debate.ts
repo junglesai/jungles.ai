@@ -4,6 +4,7 @@ export interface Debate {
   description: string;
   messageLimit: number;
   agents: {
+    _id: string;
     name: string;
     stance: string;
     personality: string;

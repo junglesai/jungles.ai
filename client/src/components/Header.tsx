@@ -85,7 +85,7 @@ const Header = ({ ownedDebates }: { ownedDebates: Array<any> }) => {
               </svg>
             </a>
             <a 
-              href="https://solscan.io/address/Fze3wnbnZSTPbGSHXTt4J7gvzTJNjH4J2Uq6HRiHbTBo" 
+              href="https://solscan.io/address/BWKfeKhge25YuAzDTb3waLC8Y8nVNAiPFvX9TUAo2V1r" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="text-gray-300 hover:text-yellowgreen-400"
@@ -150,7 +150,7 @@ const Header = ({ ownedDebates }: { ownedDebates: Array<any> }) => {
               GitHub
             </a>
             <a 
-              href="https://solscan.io/address/Fze3wnbnZSTPbGSHXTt4J7gvzTJNjH4J2Uq6HRiHbTBo" 
+              href="https://solscan.io/address/BWKfeKhge25YuAzDTb3waLC8Y8nVNAiPFvX9TUAo2V1r" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="flex items-center text-gray-300 hover:text-yellowgreen-400"

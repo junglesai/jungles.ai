@@ -20,6 +20,9 @@ module.exports = {
         superyellowgreen: {
           100: "#BCF549",
         },
+        red: {
+          400: "#F77171",
+        },
       },
       boxShadow: {
         glow: "0 0 15px rgba(157, 194, 9, 0.2)",

@@ -81,11 +81,16 @@ const DebatePage = () => {
 
   if (error) return (
     <div className="flex items-center justify-center min-h-screen">
-      <div className="text-red-500">{error}</div>
+      <div className="text-red-400">{error}</div>
     </div>
   );
 
-
+  // Example of how to structure the agents
+  const agents = debate?.agents.map(agent => ({
+    _id: agent._id, 
+    name: agent.name,
+    stance: agent.stance,
+  })) || [];
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-7xl">
@@ -117,7 +122,7 @@ const DebatePage = () => {
           <div className={`${!isBettingOpen ? 'hidden lg:block' : ''}`}>
             <BettingPanel 
               debateId={id || ''} 
-              agents={debate?.agents || []} 
+              agents={agents} 
               status={debate?.status || ''} 
               onPoolsUpdate={fetchPools}
               poolSize={poolSize}

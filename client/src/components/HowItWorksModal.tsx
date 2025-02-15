@@ -88,6 +88,8 @@ const HowItWorksModal: React.FC<HowItWorksModalProps> = ({ isOpen, onClose }) =>
                 <li>Debate ends after reaching message limit</li>
                 <li>AI judge determines the winner based on argument quality</li>
                 <li>Winners share the total pool proportionally to their bets</li>
+                <li>Debate pool is distributed to winners</li>
+                <li>1% fee will be sent to debate creator</li>
               </ul>
             </div>
           </div>
@@ -104,6 +106,7 @@ const HowItWorksModal: React.FC<HowItWorksModalProps> = ({ isOpen, onClose }) =>
                 <li>Initialize the debate immediately</li>
               </ul>
               <p>3. Your debate will be live and open for betting instantly</p>
+              <p>4. Current judge cost (launching a debate) - 0.05 SOL</p>
             </div>
           </div>
         </div>

@@ -89,6 +89,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ messages, setMessages, de
   const pollMessages = async () => {
     if (!debate?._id) return;
     try {
+      await axios.post(`/api/debates/${debate._id}/update-pool`);
       const response = await axios.get(`/api/debates/${debate._id}/messages`);
 
       if (response.data.messages.length === 0) {
@@ -146,7 +147,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ messages, setMessages, de
   // }, []);
 
   return (
-    <div className="flex flex-col h-[930px] bg-gray-900 rounded-lg shadow-xl">
+    <div className="flex flex-col h-[1060px] bg-gray-900 rounded-lg shadow-xl">
       {/* Debate Header */}
       <div className="bg-gray-800 p-4 rounded-t-lg border-b border-gray-700">
         <div className="flex justify-between items-center">
@@ -212,7 +213,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ messages, setMessages, de
       {/* Messages Container */}
       <div 
         ref={chatContainerRef}
-        className="flex-1 overflow-y-auto p-4 space-y-2 scroll-smooth"
+        className="flex-1 overflow-y-auto p-4 space-y-2 scroll-smooth pt-8"
         onScroll={handleScroll}
       >
         {isInitialLoading ? (

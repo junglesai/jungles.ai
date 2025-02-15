@@ -21,7 +21,7 @@ const AgentMessage: React.FC<Props> = ({ message, isFirstAgent, agents }) => {
   return (
     <div className={`flex ${isFirstAgent ? 'justify-start' : 'justify-end'} mb-4 relative`}>
       {isFirstAgent && (
-        <div className="absolute top-0 left-[-10px] transform -translate-y-1/2">
+        <div className="absolute top-0 left-[-12px] transform -translate-y-1/2">
           <AvatarComponent seed={agent._id} size={42} />
         </div>
       )}
@@ -59,7 +59,7 @@ const AgentMessage: React.FC<Props> = ({ message, isFirstAgent, agents }) => {
         )}
       </div>
       {!isFirstAgent && (
-        <div className="absolute top-0 right-[-10px] transform -translate-y-1/2">
+        <div className="absolute top-0 right-[-12px] transform -translate-y-1/2">
           <AvatarComponent seed={agent._id} size={42} noFlip={true} />
         </div>
       )}

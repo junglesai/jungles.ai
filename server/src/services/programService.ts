@@ -12,18 +12,19 @@ const __dirname = path.dirname(__filename);
 const isMainnet = process.env.NODE_ENV === 'production';
 const RPC_URL = isMainnet ? process.env.SOLANA_MAINNET_RPC_URL : process.env.SOLANA_DEVNET_RPC_URL;
 
-if (!process.env.SOLANA_PROGRAM_ID || !RPC_URL) {
+if (!process.env.SOLANA_PROGRAM_ID || !RPC_URL || !process.env.SOLANA_JUNGLE_PDA) {
   throw new Error('Missing Solana configuration');
 }
 
 const PROGRAM_ID = new PublicKey(process.env.SOLANA_PROGRAM_ID);
+const JUNGLE_PDA = new PublicKey(process.env.SOLANA_JUNGLE_PDA);
 const connection = new Connection(RPC_URL, "confirmed");
 const keypairFile = readFileSync(path.join(__dirname, "./deploy-wallet.json"));
 const keypair = Keypair.fromSecretKey(
   Uint8Array.from(JSON.parse(keypairFile.toString()))
 );
 
-export async function finalizeDebate(solanaAddress: string, winner: string) {
+export async function finalizeDebate(solanaAddress: string, isAgentA: boolean) {
     try {
       const debateAccount = new PublicKey(solanaAddress);
       const accountInfo = await connection.getAccountInfo(debateAccount);
@@ -40,7 +41,7 @@ export async function finalizeDebate(solanaAddress: string, winner: string) {
         return;
       }
     // Choose winner pubkey based on winner string
-    const winnerPubkey = winner === 'agent_a' ? agent_a : agent_b;
+    const winnerPubkey = isAgentA ? agent_a : agent_b;
 
 
       const discriminator = Buffer.from(sha256.digest("global:finalize_debate").slice(0, 8));
@@ -49,10 +50,13 @@ export async function finalizeDebate(solanaAddress: string, winner: string) {
         winnerPubkey.toBuffer()
       ]);
 
+      const jungleAccount = new PublicKey("CkZiGxJjgUnA1jctotaPvy6hKsdV6GKiyr3TCc46jY9P");
+
       const instruction = new TransactionInstruction({
         keys: [
           { pubkey: debateAccount, isSigner: false, isWritable: true },
           { pubkey: keypair.publicKey, isSigner: true, isWritable: true },
+          { pubkey: jungleAccount, isSigner: false, isWritable: false }, 
         ],
         programId: PROGRAM_ID,
         data,

@@ -5,7 +5,7 @@
  * IDL can be found at `target/idl/ai_debate.json`.
  */
 export type AiDebate = {
-  "address": "Fze3wnbnZSTPbGSHXTt4J7gvzTJNjH4J2Uq6HRiHbTBo",
+  "address": "BWKfeKhge25YuAzDTb3waLC8Y8nVNAiPFvX9TUAo2V1r",
   "metadata": {
     "name": "aiDebate",
     "version": "0.1.0",
@@ -31,8 +31,25 @@ export type AiDebate = {
         },
         {
           "name": "authority",
-          "writable": true,
           "signer": true
+        },
+        {
+          "name": "jungle",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  106,
+                  117,
+                  110,
+                  103,
+                  108,
+                  101
+                ]
+              }
+            ]
+          }
         }
       ],
       "args": [
@@ -66,6 +83,28 @@ export type AiDebate = {
           "signer": true
         },
         {
+          "name": "jungleAuthority",
+          "writable": true
+        },
+        {
+          "name": "jungle",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  106,
+                  117,
+                  110,
+                  103,
+                  108,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
           "name": "systemProgram",
           "address": "11111111111111111111111111111111"
         }
@@ -80,6 +119,50 @@ export type AiDebate = {
           "type": "pubkey"
         }
       ]
+    },
+    {
+      "name": "initializeJungle",
+      "discriminator": [
+        128,
+        87,
+        219,
+        9,
+        34,
+        163,
+        88,
+        114
+      ],
+      "accounts": [
+        {
+          "name": "jungle",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  106,
+                  117,
+                  110,
+                  103,
+                  108,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "systemProgram",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
     },
     {
       "name": "placeBet",
@@ -149,6 +232,51 @@ export type AiDebate = {
       ]
     },
     {
+      "name": "updateInitCost",
+      "discriminator": [
+        66,
+        121,
+        50,
+        12,
+        82,
+        242,
+        212,
+        21
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "jungle",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  106,
+                  117,
+                  110,
+                  103,
+                  108,
+                  101
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "newCost",
+          "type": "u64"
+        }
+      ]
+    },
+    {
       "name": "withdraw",
       "discriminator": [
         183,
@@ -202,6 +330,10 @@ export type AiDebate = {
         {
           "name": "authority",
           "writable": true
+        },
+        {
+          "name": "systemProgram",
+          "address": "11111111111111111111111111111111"
         }
       ],
       "args": [
@@ -228,6 +360,19 @@ export type AiDebate = {
         59,
         137,
         30
+      ]
+    },
+    {
+      "name": "jungle",
+      "discriminator": [
+        31,
+        159,
+        200,
+        136,
+        155,
+        66,
+        11,
+        152
       ]
     },
     {
@@ -264,6 +409,16 @@ export type AiDebate = {
       "code": 6003,
       "name": "noWinningsToWithdraw",
       "msg": "No winnings to withdraw"
+    },
+    {
+      "code": 6004,
+      "name": "unauthorizedAccess",
+      "msg": "Unauthorized access"
+    },
+    {
+      "code": 6005,
+      "name": "jungleNotInitialized",
+      "msg": "Jungle not initialized"
     }
   ],
   "types": [
@@ -301,6 +456,22 @@ export type AiDebate = {
           {
             "name": "authority",
             "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "jungle",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "initCost",
+            "type": "u64"
           }
         ]
       }

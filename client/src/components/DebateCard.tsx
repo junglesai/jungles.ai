@@ -62,8 +62,9 @@ const DebateCard = ({ debate }: DebateCardProps) => {
               }`}>
                 {debate.status}
               </span> */}
-              <span className="bg-gray-700 text-yellowgreen-100 px-3 py-1 rounded-full text-xs font-medium">
-              {Number(debate.totalPool) ? <SlotCounter value={(Number(debate.totalPool) / 1000000000).toFixed(2)}/> : 0} SOL
+              <span className="bg-gray-700 text-yellowgreen-100 px-3 py-1 rounded-full text-xs font-medium cardCounter">
+              {/* {Number(debate.totalPool) ? <SlotCounter charClassName={"counterNumber"} separatorClassName={"counterSeparator"} value={(Number(debate.totalPool) / 1000000000).toFixed(2)}/> : 0} SOL */}
+              {Number(debate.totalPool) ? (Number(debate.totalPool) / 1000000000).toFixed(2) : 0} SOL
               </span>
               <span className="text-xs text-gray-400 slotWrapper">
               {"{"} {debate.messages.length} / {debate.messageLimit} {"}"}

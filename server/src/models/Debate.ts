@@ -12,6 +12,7 @@ export interface IDebate extends mongoose.Document {
     name: string;
     stance: string;
     personality: string;
+    _id: string;
   }>;
   messages: Array<{
     agentId: string;
@@ -29,6 +30,7 @@ export interface IDebate extends mongoose.Document {
   signature: string;
   pool1: number;
   pool2: number;
+  agent_a: string;
   bets: Array<{
     userAddress: string;
     agentIndex: number;
@@ -69,6 +71,7 @@ const debateSchema = new mongoose.Schema({
     enum: ['active', 'paused', 'completed'],
     default: 'active'
   },
+  agent_a: String,
   winner: {
     type: String,
     default: null,

@@ -1,7 +1,7 @@
 import { EventEmitter } from 'events';
 import { Debate, IDebate } from '../models/Debate.js';
 import { generateNextMessage } from '../services/debateService.js'; // Your existing agent service
-import { createDebateThread, generateResponse } from '../services/openai.js';
+import { createDebateThread, generateResponse, createVerdict } from '../services/openai.js';
 import { finalizeDebate } from './programService.js';
 
 class DebateManager extends EventEmitter {
@@ -54,6 +54,7 @@ class DebateManager extends EventEmitter {
    async continueDebate(debateId: string) {
     try {
       const debate = await Debate.findById(debateId);
+
       if (!debate || debate.status === 'paused' || debate.status === 'completed') return;
 
       // Check if there's a typing message
@@ -62,6 +63,7 @@ class DebateManager extends EventEmitter {
         return;
       } 
         
+
       // Check if message limit reached
       if (debate.messages.filter((m: { status: string }) => m.status === 'answered').length >= debate.messageLimit) {
         await this.generateVerdict(debate);
@@ -130,23 +132,31 @@ class DebateManager extends EventEmitter {
         `${msg.agentId}: ${msg.content}`
       ).join('\n\n');
 
-      const newThread = await createDebateThread();
-      const response = await generateResponse(
-        newThread.id,
-        process.env.JUDGE_ASSISTANT_ID!,
-        debate.title,
-        `Here is the complete debate:\n\n${debateHistory}\n\nPlease analyze this debate and determine the winner with explanation.`
-      );
+      // const newThread = await createDebateThread();
+      // const response = await generateResponse(
+      //   newThread.id,
+      //   process.env.JUDGE_ASSISTANT_ID!,
+      //   debate.title,
+      //   `Here is the complete debate:\n\n${debateHistory}\n\nPlease analyze this debate and determine the winner with explanation.`
+      // );
 
-      // Parse the verdict response
-      const verdict = JSON.parse(response);
+      const verdict = await createVerdict(debate, debateHistory);
+      console.log('Verdict:', verdict);
+
+      const winnerName = debate.agents.find((agent: { name: string }) => agent.name === verdict?.winner)?.name;
+      if (!winnerName) {
+        throw new Error('Winner ID not found');
+      }
+
       debate.verdict = {
-        winner: verdict.winner,
-        explanation: verdict.explanation,
+        winner: winnerName,
+        explanation: verdict?.explanation || '',
         timestamp: new Date()
       };
 
-      await finalizeDebate(debate.solanaAddress, verdict.winner);
+      const isAgentA = winnerName === debate.agent_a;
+
+      await finalizeDebate(debate.solanaAddress, isAgentA);
       
       await debate.save();
       this.emit('verdictGenerated', { debateId: debate._id, verdict: debate.verdict });

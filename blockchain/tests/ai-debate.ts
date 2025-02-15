@@ -205,13 +205,15 @@ describe("ai_debate", () => {
   });
 
   it("Finalizes the debate with Agent A as winner", async () => {
+    const jungleAccount = await program.account.jungle.fetch(junglePDA);
+    
     await program.methods
         .finalizeDebate(agentA)
         .accounts({
             debate: debateAccount.publicKey,
-            authority: user.publicKey,
+            authority: jungleAccount.authority,
         })
-        .signers([user])
+        .signers([provider.wallet.payer])
         .rpc();
 
     const debate = await program.account.debate.fetch(debateAccount.publicKey);
@@ -297,7 +299,7 @@ describe("ai_debate", () => {
         const tx = await program.methods
             .updateInitCost(newCost)
             .accounts({
-                authority: provider.wallet.publicKey,
+                authority: jungleAccount.authority,
                 jungle: junglePDA,
             })
             .signers([provider.wallet.payer])

@@ -6,6 +6,7 @@ import { join } from 'path';
 import { fileURLToPath } from 'url';
 import { zodResponseFormat } from "openai/helpers/zod";
 import { z } from "zod";
+import { IDebate } from '../models/Debate.js';
 
 dotenv.config();
 
@@ -19,9 +20,10 @@ interface Agent {
   personality: string;
 }
 
+
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const systemPrompt = readFileSync(join(__dirname, './creator_prompt.txt'), 'utf8');
-
+const judgePrompt = readFileSync(join(__dirname, './judge_prompt.txt'), 'utf8');
 export const createAssistant = async (agent: Agent) => {
   const assistant = await openai.beta.assistants.create({
     name: agent.name,
@@ -128,8 +130,7 @@ export const createDebateUsingAssistant = async (prompt: string) => {
   const threadId = thread.id;
   const run = await openai.beta.threads.runs.create(threadId, {
     assistant_id: process.env.DEBATE_CREATOR_ID as string,
-    instructions: prompt ? `Create a new debate topic: ${prompt}` : `Create a new debate topic.`
-  });
+    instructions: prompt ? `Create a new debate topic: ${prompt}` : `Create a new debate topic.`  });
 
       // Wait for completion with increased timeout
       let runStatus = await openai.beta.threads.runs.retrieve(threadId, run.id);
@@ -283,3 +284,35 @@ export const generateResponseWithCompletion = async (
     throw error;
   }
 };
+
+export const createVerdict = async (debate: IDebate, debateHistory: string) => {
+  const messages = [
+    { role: "system", content: judgePrompt },
+    { role: "user", content: `Here is the complete debate:\n\n${debateHistory}\n\nPlease analyze this debate and determine the winner with explanation.` }
+  ];
+
+  const agentNames = [debate.agents[0].name, debate.agents[1].name];
+  
+  const Verdict = z.object({
+    winner: z.enum(agentNames as [string, ...string[]]),
+    explanation: z.string(),
+  });
+
+  
+    const verdict = await openai.beta.chat.completions.parse({
+      model: process.env.DEBATE_MODEL as ChatModel,
+      messages: messages.map(msg => ({
+        role: msg.role as 'system' | 'user' | 'assistant',
+        content: msg.content
+      })),
+      temperature: 0.9,
+      max_tokens: 1024,
+      top_p: 0.7,
+      frequency_penalty: 1.0,
+      presence_penalty: 1.0,
+      response_format: zodResponseFormat(Verdict, "verdict")
+    });
+  
+    const response = verdict.choices[0].message.parsed;
+    return response;
+}

@@ -4,14 +4,14 @@
 resolution = true
 skip-lint = false
 
-[programs.mainnet]
-ai_debate = "Fze3wnbnZSTPbGSHXTt4J7gvzTJNjH4J2Uq6HRiHbTBo"
+[programs.devnet]
+ai_debate = "BWKfeKhge25YuAzDTb3waLC8Y8nVNAiPFvX9TUAo2V1r"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "mainnet"
+cluster = "Devnet"
 wallet = "./deploy-wallet.json"
 
 [workspace]

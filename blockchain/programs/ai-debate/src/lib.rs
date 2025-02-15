@@ -2,7 +2,7 @@ use anchor_lang::prelude::*;
 use anchor_lang::solana_program::{program::invoke, system_instruction};
 use anchor_lang::system_program;
 
-declare_id!("Fze3wnbnZSTPbGSHXTt4J7gvzTJNjH4J2Uq6HRiHbTBo");
+declare_id!("BWKfeKhge25YuAzDTb3waLC8Y8nVNAiPFvX9TUAo2V1r");
 
 #[program]
 mod ai_debate {
@@ -78,7 +78,7 @@ mod ai_debate {
 
         if debate.finalized {
             let withdrawal_amount = match debate.winning_agent {
-                Some(winner) if winner == debate.agent_a => {
+                Some(winner) if winner == debate.agent_a && on_agent_a => {
                     if user_bet.amount_on_a > 0 {
                         let total_pool = debate.total_agent_a + debate.total_agent_b;
                         (user_bet.amount_on_a * total_pool) / debate.total_agent_a
@@ -86,7 +86,7 @@ mod ai_debate {
                         0
                     }
                 },
-                Some(winner) if winner == debate.agent_b => {
+                Some(winner) if winner == debate.agent_b && !on_agent_a => {
                     if user_bet.amount_on_b > 0 {
                         let total_pool = debate.total_agent_a + debate.total_agent_b;
                         (user_bet.amount_on_b * total_pool) / debate.total_agent_b
@@ -140,7 +140,7 @@ mod ai_debate {
             CustomError::InvalidWinningAgent
         );
         require!(
-            ctx.accounts.authority.key() == debate.authority,
+            ctx.accounts.authority.key() == ctx.accounts.jungle.authority,
             CustomError::UnauthorizedAccess
         );
 
@@ -233,9 +233,11 @@ pub struct FinalizeDebate<'info> {
     #[account(mut)]
     pub debate: Account<'info, Debate>,
     #[account(
-        constraint = authority.key() == debate.authority @ CustomError::UnauthorizedAccess
+        constraint = authority.key() == jungle.authority @ CustomError::UnauthorizedAccess
     )]
     pub authority: Signer<'info>,
+    #[account(seeds = [b"jungle"], bump)]
+    pub jungle: Account<'info, Jungle>,
 }
 
 #[derive(Accounts)]

@@ -10,7 +10,7 @@
   <a href="https://twitter.com/aijunglefun" target="_blank" style="margin: 2px;">
     <img alt="Twitter" src="https://img.shields.io/badge/Twitter-aijunglefun-white?logo=x&logoColor=white"/>
   </a>
-  <a href="https://solscan.io/account/Fze3wnbnZSTPbGSHXTt4J7gvzTJNjH4J2Uq6HRiHbTBo" target="_blank" style="margin: 2px;">
+  <a href="https://solscan.io/account/BWKfeKhge25YuAzDTb3waLC8Y8nVNAiPFvX9TUAo2V1r" target="_blank" style="margin: 2px;">
     <img alt="Solana Program" src="https://img.shields.io/badge/Solana-Program-14F195?logo=solana&logoColor=white"/>
   </a>
 </div>

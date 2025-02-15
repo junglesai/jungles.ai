@@ -92,8 +92,8 @@ router.get('/:id', async (req: Request, res: Response) => {
 router.get('/:id/messages', async (req: Request, res: Response) => {
   try {
     const debate = await Debate.findById(req.params.id);
-
     const lastMessage = debate.messages[debate.messages.length - 1];
+
     if (lastMessage?.timestamp < new Date(Date.now() - 45000) && debate.status === 'active') {
       if (lastMessage?.status === 'typing') {
         debate.messages.pop();
@@ -158,6 +158,7 @@ router.post('/create', async (req: Request, res: Response) => {
 
     const newDebate = {
       ...debateResponse,
+      agent_a: debateResponse.agent1.name,
       agents: [debateResponse.agent1, debateResponse.agent2],
       signature: signature,
       solanaAddress: debateAddress,
@@ -188,7 +189,8 @@ router.post('/:id/update-pool', async (req: Request, res: Response) => {
       throw new Error('Debate not found');
     }
 
-    const debateAccount = new PublicKey(debate.solanaAddress);
+
+    const debateAccount = new PublicKey(debate.solanaAddress)
     const accountInfo = await connection.getAccountInfo(debateAccount);
     
     if (!accountInfo) {
@@ -202,7 +204,7 @@ router.post('/:id/update-pool', async (req: Request, res: Response) => {
     const totalPool = Number(pool1) + Number(pool2);
 
     // Update debate in database
-    await Debate.findByIdAndUpdate(id, {
+    await Debate.findByIdAndUpdate({_id: id, status: 'active'}, {
       totalPool,
       'agents.0.pool': Number(pool1),
       'agents.1.pool': Number(pool2)

@@ -34,7 +34,7 @@ const CircleCountdown: React.FC<Props> = ({ duration, isFirstAgent, onComplete }
   const getColor = () => {
     if (progress > 66) return 'rgb(169, 255, 0)';  // yellowgreen-400
     if (progress > 33) return 'rgb(234, 179, 8)';  // yellow-500
-    return 'rgb(239, 68, 68)';  // red-500
+    return 'rgb(239, 68, 68)';  // red-400
   };
 
   const radius = 24;  // Increased from 20

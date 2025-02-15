@@ -4,6 +4,9 @@ import Footer from './components/Footer';
 import DebateCard from './components/DebateCard';
 import judgeRight from "./assets/images/judgeRight.png";
 import judgeLogo from "./assets/images/judge.png";
+import judgeRight2 from "./assets/images/judgeRight1.png";
+import judgeLogo2 from "./assets/images/judge1.png";
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import DebatePage from './pages/DebatePage';
 import LaunchModal from './components/LaunchModal';
@@ -82,8 +85,8 @@ function App() {
         params.append('sort', _sortBy_ || sortBy);
       }
 
-      if (publicKey) {
-        params.append('deployer', publicKey.toBase58());
+      if (publicKey || localStorage.getItem('address')) {
+        params.append('deployer', publicKey?.toBase58() || localStorage.getItem('address') || '');
       }
 
       const response = await axios.get(`/api/debates?${params}`);
@@ -334,7 +337,7 @@ function App() {
                       />
                     </svg>
                     <p className="text-xl mb-2">no debates found</p>
-                    <p className="text-sm">
+                    <p className="text-sm lowercase">
                       {searchTerm 
                         ? `No results found for "${searchTerm}"`
                         : "Try adjusting your search or filters"

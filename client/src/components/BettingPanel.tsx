@@ -22,6 +22,8 @@ interface Props {
 }
 
 interface UserPosition {
+  amountOnA: number;
+  amountOnB: number;
   totalInvested: number;
   potentialReturns: {
     ifAgent1Wins: number;
@@ -43,6 +45,8 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools 
   const [pullAmounts, setPullAmounts] = useState<[string, string]>(['', '']);
   const [toast, setToast] = useState<{ message: string; type: ToastType } | null>(null);
   const [userPosition, setUserPosition] = useState<UserPosition>({
+    amountOnA: 0,
+    amountOnB: 0,
     totalInvested: 0,
     potentialReturns: {
       ifAgent1Wins: 0,
@@ -129,6 +133,8 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools 
         : 0;
 
         setUserPosition({
+        amountOnA,
+        amountOnB,
         totalInvested,
         potentialReturns: {
           ifAgent1Wins: Number(potentialIfAWins),
@@ -232,8 +238,9 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools 
         throw new Error('Debate account not found');
       }
 
+      // Ensure the authority is correctly derived or fetched
       const authority = new PublicKey(
-        Buffer.from(debateAccountInfo.data).slice(8 + 32 + 32 + 8 + 8 + 1 + 1, 8 + 32 + 32 + 8 + 8 + 1 + 1 + 32)
+        Buffer.from(debateAccountInfo.data).slice(8 + 32 + 32 + 8 + 8 + 1 + 1 + 32, 8 + 32 + 32 + 8 + 8 + 1 + 1 + 32 + 32)
       );
 
       const [userBetAccount] = await PublicKey.findProgramAddress(
@@ -259,7 +266,7 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools 
           { pubkey: debateAccount, isSigner: false, isWritable: true },
           { pubkey: userBetAccount, isSigner: false, isWritable: true },
           { pubkey: publicKey, isSigner: true, isWritable: true },
-          { pubkey: authority, isSigner: false, isWritable: true },
+          { pubkey: authority, isSigner: false, isWritable: true }, // Ensure correct authority
           { pubkey: SystemProgram.programId, isSigner: false, isWritable: false },
         ],
         programId: PROGRAM_ID,
@@ -389,7 +396,7 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools 
                       setPullAmounts(newPullAmounts as [string, string]);
                     }}
                   />
-                  <button style={{width: "40%"}} className="px-4 py-2 bg-red-400 text-gray-900 rounded text-sm font-medium hover:bg-red-300 transition-colors lowercase" onClick={() => pullBet(index, pullAmounts[index])}>
+                  <button style={{width: "40%"}} className="px-4 py-2 bg-red-400 text-white-100 rounded text-sm font-medium hover:bg-red-300 transition-colors lowercase" onClick={() => pullBet(index, pullAmounts[index])}>
                     Pull Bet
                   </button>
                 </div>
@@ -408,18 +415,32 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools 
       {/* User Position Panel */}
       {connected && userPosition.totalInvested > 0 && (
         <div className="mt-6 bg-gray-800 rounded-lg p-4">
-          <h3 className="text-yellowgreen-400 font-medium mb-3">{"{"} Your Position {"}"}</h3>
+          <h3 className="text-yellowgreen-400 font-medium mb-3 lowercase">{"{"} Your Position {"}"}</h3>
           
           <div className="space-y-2">
-            <div className="flex justify-between text-sm">
-              <span className="text-gray-400">Total Invested:</span>
+          <div className="flex justify-between text-sm">  
+              <span className="text-gray-400">{"{{"} {agents[0].name} {"}}"}</span>
+              <span className="text-white">
+                {(userPosition.amountOnA / LAMPORTS_PER_SOL).toFixed(2)} SOL
+              </span>
+            </div>
+
+            <div className="flex justify-between text-sm">  
+              <span className="text-gray-400">{"{{"} {agents[1].name} {"}}"}</span>
+              <span className="text-white">
+                {(userPosition.amountOnB / LAMPORTS_PER_SOL).toFixed(2)} SOL
+              </span>
+            </div>
+
+            <div className="flex justify-between text-sm lowercase">  
+              <span className="text-gray-400">{"{{"} Total Invested {"}}"}</span>
               <span className="text-white">
                 {(userPosition.totalInvested / LAMPORTS_PER_SOL).toFixed(2)} SOL
               </span>
             </div>
 
-            <div className="flex justify-between text-sm">
-              <span className="text-gray-400">Current Pullable:</span>
+            <div className="flex justify-between text-sm lowercase">
+              <span className="text-gray-400">{"{{"} Current Pullable {"}}"}</span>
               <span className="text-white">
                 {(userPosition.currentPullable / LAMPORTS_PER_SOL).toFixed(2)} SOL
               </span>
@@ -427,13 +448,13 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools 
 
             <div className="border-t border-gray-700 my-2"></div>
 
-            <div className="text-sm text-gray-400 mb-1">Potential Returns:</div>
+            <div className="text-sm text-gray-400 mb-1 lowercase">{"{{"} Potential Returns {"}}"}</div>
             
             <div className="flex justify-between text-sm">
-              <span className="text-yellowgreen-400">{agents[0].name}:</span>
+            <span className={`${userPosition.potentialReturns.ifAgent1Wins > userPosition.totalInvested ? 'text-yellowgreen-400' : 'text-red-400'}`}>{agents[0].name} wins:</span>
               <div className="flex items-center gap-2">
                 <span className="text-white">
-                  {(userPosition.potentialReturns.ifAgent1Wins / LAMPORTS_PER_SOL).toFixed(2)} SOL
+                  {(userPosition.potentialReturns.ifAgent1Wins / LAMPORTS_PER_SOL).toFixed(4)} SOL
                 </span>
                 <span className={`text-xs ${userPosition.potentialReturns.ifAgent1Wins > userPosition.totalInvested ? 'text-green-400' : 'text-red-400'}`}>
                   ({((userPosition.potentialReturns.ifAgent1Wins / userPosition.totalInvested - 1) * 100).toFixed(1)}%)
@@ -442,10 +463,10 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools 
             </div>
 
             <div className="flex justify-between text-sm">
-              <span className="text-red-400">{agents[1].name}:</span>
+              <span className={`${userPosition.potentialReturns.ifAgent2Wins > userPosition.totalInvested ? 'text-yellowgreen-400' : 'text-red-400'}`}>{agents[1].name} wins:</span>
               <div className="flex items-center gap-2">
                 <span className="text-white">
-                  {(userPosition.potentialReturns.ifAgent2Wins / LAMPORTS_PER_SOL).toFixed(2)} SOL
+                  {(userPosition.potentialReturns.ifAgent2Wins / LAMPORTS_PER_SOL).toFixed(4)} SOL
                 </span>
                 <span className={`text-xs ${userPosition.potentialReturns.ifAgent2Wins > userPosition.totalInvested ? 'text-green-400' : 'text-red-400'}`}>
                   ({((userPosition.potentialReturns.ifAgent2Wins / userPosition.totalInvested - 1) * 100).toFixed(1)}%)
@@ -453,8 +474,11 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools 
               </div>
             </div>
           </div>
+          <br/>
+          <span className="text-gray-400 text-xs">{"{{"} 1% fee will be sent to debate creator {"}}"}</span>
         </div>
       )}
+
 
       {toast && (
         <Toast
