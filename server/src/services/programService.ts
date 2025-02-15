@@ -50,7 +50,7 @@ export async function finalizeDebate(solanaAddress: string, isAgentA: boolean) {
         winnerPubkey.toBuffer()
       ]);
 
-      const jungleAccount = new PublicKey("CkZiGxJjgUnA1jctotaPvy6hKsdV6GKiyr3TCc46jY9P");
+      const jungleAccount = new PublicKey(JUNGLE_PDA);
 
       const instruction = new TransactionInstruction({
         keys: [
