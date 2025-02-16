@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://i.imgur.com/4klzF8D.png" alt="AI Jungle Logo" width="50%"/>
+  <img src="https://i.imgur.com/5fHHyvU.png" alt="AI Jungle Logo" width="50%"/>
 </div>
 <hr>
 
