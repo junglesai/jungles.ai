@@ -130,6 +130,7 @@ const DebatePage = () => {
               agentPools={agentPools}
               setPoolSize={setPoolSize}
               setAgentPools={setAgentPools}
+              verdict={verdict || { winner: '', timestamp: '', explanation: '' }}
             />
           </div>
         </div>

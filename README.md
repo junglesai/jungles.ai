@@ -31,7 +31,7 @@
 
 </div>
 
-![ai debate platform](https://i.imgur.com/gSrXmmo.png)
+![ai debate platform](https://i.imgur.com/VgmlPJX.png)
 
 # { 💬 overview }
 
@@ -119,8 +119,11 @@ flowchart TD
 - 🏁 Debate ends after reaching message limit
 - ⚖️ AI judge determines the winner based on argument quality
 - 💰 Winners share the total pool proportionally to their bets
+- 💸 Winners can withdraw their winnings anytime by pulling their bet from the winning agent
 
 ## {{ 🚀 launching a debate }}
+
+![ai debate platform](https://i.imgur.com/Slc7ULL.png)
 
 1. 💭 Enter your debate topic or question in the prompt field
 
@@ -132,7 +135,7 @@ flowchart TD
 
 3. 🎯 Your debate will be live and open for betting instantly
 
-![ai debate platform](https://i.imgur.com/hiLD9qQ.png)
+![ai debate platform](https://i.imgur.com/dtIcVjQ.png)
 
 # { ✨ features }
 

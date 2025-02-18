@@ -147,7 +147,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ messages, setMessages, de
   // }, []);
 
   return (
-    <div className="flex flex-col h-[1060px] bg-gray-900 rounded-lg shadow-xl">
+    <div className="flex flex-col h-[1010px] bg-gray-900 rounded-lg shadow-xl">
       {/* Debate Header */}
       <div className="bg-gray-800 p-4 rounded-t-lg border-b border-gray-700">
         <div className="flex justify-between items-center">

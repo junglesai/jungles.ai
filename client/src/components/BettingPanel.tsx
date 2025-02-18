@@ -19,6 +19,7 @@ interface Props {
   agentPools: [number, number];
   setPoolSize: (size: number) => void;
   setAgentPools: (pools: [number, number]) => void;
+  verdict: any;
 }
 
 interface UserPosition {
@@ -34,7 +35,7 @@ interface UserPosition {
 
 const PROGRAM_ID = new PublicKey(import.meta.env.VITE_SOLANA_PROGRAM_ID);
 
-const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools }) => {
+const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools, verdict }) => {
   const { connected, publicKey, sendTransaction } = useWallet();
   const [poolInfo, setPoolInfo] = useState<{
     agent1Pool: number;
@@ -52,7 +53,7 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools 
       ifAgent1Wins: 0,
       ifAgent2Wins: 0
     },
-    currentPullable: 0
+    currentPullable: 0,
   });
   
   const mode = import.meta.env.VITE_MODE;
@@ -132,6 +133,16 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools 
         ? (amountOnB * totalPool) / pool2
         : 0;
 
+        const winner = agents.find(agent => agent.name.toLowerCase() === verdict?.winner?.toLowerCase());
+        let winningAmount;
+        if (winner) {
+          if (winner.name === agents[0].name) {
+            winningAmount = potentialIfAWins;
+          } else {
+            winningAmount = potentialIfBWins;
+          }
+        }
+
         setUserPosition({
         amountOnA,
         amountOnB,
@@ -140,7 +151,7 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools 
           ifAgent1Wins: Number(potentialIfAWins),
           ifAgent2Wins: Number(potentialIfBWins)
         },
-        currentPullable: totalInvested
+        currentPullable: winner && winningAmount ? winningAmount : totalInvested
       });
     } catch (error) {
       console.error('Error calculating position:', error);
@@ -451,8 +462,10 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools 
             <div className="text-sm text-gray-400 mb-1 lowercase">{"{{"} Potential Returns {"}}"}</div>
             
             <div className="flex justify-between text-sm">
-            <span className={`${userPosition.potentialReturns.ifAgent1Wins > userPosition.totalInvested ? 'text-yellowgreen-400' : 'text-red-400'}`}>{agents[0].name} wins:</span>
-              <div className="flex items-center gap-2">
+              <span className={`${userPosition.potentialReturns.ifAgent1Wins > userPosition.totalInvested ? 'text-yellowgreen-400' : 'text-red-400'} ${verdict?.winner && verdict.winner.toLowerCase() !== agents[0].name.toLowerCase() ? 'line-through' : ''}`}>
+                {agents[0].name} {verdict?.winner && verdict.winner.toLowerCase() === agents[0].name.toLowerCase() ? '👑' : "wins:"}
+              </span>
+              <div className={`flex items-center gap-2 ${verdict?.winner && verdict.winner.toLowerCase() !== agents[0].name.toLowerCase() ? 'line-through' : ''}`}>
                 <span className="text-white">
                   {(userPosition.potentialReturns.ifAgent1Wins / LAMPORTS_PER_SOL).toFixed(4)} SOL
                 </span>
@@ -463,8 +476,10 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools 
             </div>
 
             <div className="flex justify-between text-sm">
-              <span className={`${userPosition.potentialReturns.ifAgent2Wins > userPosition.totalInvested ? 'text-yellowgreen-400' : 'text-red-400'}`}>{agents[1].name} wins:</span>
-              <div className="flex items-center gap-2">
+              <span className={`${userPosition.potentialReturns.ifAgent2Wins > userPosition.totalInvested ? 'text-yellowgreen-400' : 'text-red-400'} ${verdict?.winner && verdict.winner.toLowerCase() !== agents[1].name.toLowerCase() ? 'line-through' : ''}`}>
+                {agents[1].name} {verdict?.winner && verdict.winner.toLowerCase() === agents[1].name.toLowerCase() ? '👑' : "wins:"}
+              </span>
+              <div className={`flex items-center gap-2 ${verdict?.winner && verdict.winner.toLowerCase() !== agents[1].name.toLowerCase() ? 'line-through' : ''}`}>
                 <span className="text-white">
                   {(userPosition.potentialReturns.ifAgent2Wins / LAMPORTS_PER_SOL).toFixed(4)} SOL
                 </span>
