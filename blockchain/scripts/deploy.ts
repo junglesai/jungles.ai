@@ -68,8 +68,16 @@ async function main() {
         Buffer.from(JSON.parse(fs.readFileSync(keypairFile, 'utf-8')))
     );
 
-      const provider = anchor.AnchorProvider.env();
-      anchor.setProvider(provider);
+    const connection = new anchor.web3.Connection(
+      "https://mainnet.helius-rpc.com/?api-key=068182b0-c7ae-497a-821f-88c78e1b1bd7",
+      "confirmed"
+   );
+   const provider = new anchor.AnchorProvider(
+      connection,
+      anchor.AnchorProvider.env().wallet,
+      { commitment: "confirmed" }
+   );
+   anchor.setProvider(provider);
 
       const program = anchor.workspace.AiDebate;
 

@@ -54,7 +54,7 @@ function App() {
   const [pagination, setPagination] = useState({
     hasNextPage: false,
     nextLastId: null,
-    limit: 9
+    limit: 300
   });
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -63,16 +63,19 @@ function App() {
   const [newDebateIds, setNewDebateIds] = useState<Set<string>>(new Set());
   const [ownedDebates, setOwnedDebates] = useState<Debate[]>([]);
   const POLL_INTERVAL = 5000; // 5 seconds
+  const currentDebatesLength = useRef(0);
 
-  const fetchDebates = async (noLoading: boolean = false, lastId?: string, polling: boolean = false, _searchTerm_?: string, _sortBy_?: string) => {
+  const fetchDebates = async (noLoading: boolean = false, lastId?: string, polling: boolean = false, _searchTerm_?: string, _sortBy_?: string, ) => {
     if (!noLoading) {
       setLoading(true);
     }
     try {
+      const limit = currentDebatesLength.current > pagination.limit ? currentDebatesLength.current : pagination.limit;
+
       const params = new URLSearchParams({
-        limit: pagination.limit.toString()
+        limit: limit.toString()
       });
-      
+
       if (lastId) {
         params.append('lastId', lastId);
       }
@@ -96,10 +99,10 @@ function App() {
         if (polling) {
           // For polling, only update first page while preserving pagination
           const firstPageDebates = newDebates;
-          const remainingDebates = prevDebates.slice(pagination.limit);
+          const remainingDebates = prevDebates.slice(limit);
           
           // Check for new debates
-          const prevIds = new Set(prevDebates.slice(0, pagination.limit).map(d => d._id));
+          const prevIds = new Set(prevDebates.slice(0, limit).map(d => d._id));
           const newIds = new Set<string>();
           
           firstPageDebates.forEach((debate: Debate) => {
@@ -158,6 +161,10 @@ function App() {
   const observerTarget = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    currentDebatesLength.current = debates.length;
+  }, [debates]);
+
+  useEffect(() => {
     const observer = new IntersectionObserver(
       entries => {
         if (entries[0].isIntersecting) {
@@ -178,7 +185,7 @@ function App() {
     if (window.location.pathname === '/') {
       fetchDebates();
       const interval = setInterval(() => {
-        fetchDebates(true, undefined, true);
+        fetchDebates(true, undefined, true, searchTerm, sortBy);
       }, POLL_INTERVAL);
   
       return () => clearInterval(interval);
