@@ -18,7 +18,7 @@ const DebateVerdict: React.FC<DebateVerdictProps> = ({ verdict }) => {
       <h3 className="text-gray-400 text-sm mb-2">{"{"} Debate Verdict {"}"}</h3>
       {verdict ? (
         <div>
-          <p className="text-white font-medium mb-2">Winner: {verdict.winner}</p>
+          <p className="text-white font-medium mb-2 flex items-center gap-2"><span>👑</span> <span className="text-yellowgreen-400 mt-1">Winner: {verdict.winner}</span></p>
           <div className={`relative ${!isExpanded && 'max-h-10 overflow-hidden'}`}>
             <p className="text-gray-300">{verdict.explanation}</p>
             {!isExpanded && (

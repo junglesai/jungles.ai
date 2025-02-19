@@ -143,15 +143,16 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools,
           }
         }
 
+        
         setUserPosition({
         amountOnA,
         amountOnB,
         totalInvested,
         potentialReturns: {
-          ifAgent1Wins: Number(potentialIfAWins),
-          ifAgent2Wins: Number(potentialIfBWins)
+          ifAgent1Wins: Math.floor(Number(potentialIfAWins)),
+          ifAgent2Wins: Math.floor(Number(potentialIfBWins))
         },
-        currentPullable: winner && winningAmount ? winningAmount : totalInvested
+        currentPullable: winner && winningAmount ? Math.floor(Number(winningAmount)) : totalInvested
       });
     } catch (error) {
       console.error('Error calculating position:', error);
@@ -453,7 +454,7 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools,
             <div className="flex justify-between text-sm lowercase">
               <span className="text-gray-400">{"{{"} Current Pullable {"}}"}</span>
               <span className="text-white">
-                {(userPosition.currentPullable / LAMPORTS_PER_SOL).toFixed(2)} SOL
+              {Math.floor(userPosition.currentPullable / LAMPORTS_PER_SOL * 100) / 100} SOL
               </span>
             </div>
 
@@ -467,10 +468,10 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools,
               </span>
               <div className={`flex items-center gap-2 ${verdict?.winner && verdict.winner.toLowerCase() !== agents[0].name.toLowerCase() ? 'line-through' : ''}`}>
                 <span className="text-white">
-                  {(userPosition.potentialReturns.ifAgent1Wins / LAMPORTS_PER_SOL).toFixed(4)} SOL
+                {Math.floor(userPosition.potentialReturns.ifAgent1Wins / LAMPORTS_PER_SOL * 10000) / 10000} SOL
                 </span>
                 <span className={`text-xs ${userPosition.potentialReturns.ifAgent1Wins > userPosition.totalInvested ? 'text-green-400' : 'text-red-400'}`}>
-                  ({((userPosition.potentialReturns.ifAgent1Wins / userPosition.totalInvested - 1) * 100).toFixed(1)}%)
+                ({Math.floor((userPosition.potentialReturns.ifAgent1Wins / userPosition.totalInvested - 1) * 1000) / 10}%)
                 </span>
               </div>
             </div>
@@ -481,10 +482,10 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools,
               </span>
               <div className={`flex items-center gap-2 ${verdict?.winner && verdict.winner.toLowerCase() !== agents[1].name.toLowerCase() ? 'line-through' : ''}`}>
                 <span className="text-white">
-                  {(userPosition.potentialReturns.ifAgent2Wins / LAMPORTS_PER_SOL).toFixed(4)} SOL
+                {Math.floor(userPosition.potentialReturns.ifAgent2Wins / LAMPORTS_PER_SOL * 10000) / 10000} SOL
                 </span>
                 <span className={`text-xs ${userPosition.potentialReturns.ifAgent2Wins > userPosition.totalInvested ? 'text-green-400' : 'text-red-400'}`}>
-                  ({((userPosition.potentialReturns.ifAgent2Wins / userPosition.totalInvested - 1) * 100).toFixed(1)}%)
+                ({Math.floor((userPosition.potentialReturns.ifAgent2Wins / userPosition.totalInvested - 1) * 1000) / 10}%)
                 </span>
               </div>
             </div>

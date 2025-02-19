@@ -8,32 +8,33 @@ import { Wallet } from "@coral-xyz/anchor";
 
 const PROGRAM_NAME = 'ai_debate';
 const PROGRAM_ID_PATH = path.join(__dirname, '..', 'program_id.json');
-process.env.ANCHOR_PROVIDER_URL = "https://api.devnet.solana.com";
+// process.env.ANCHOR_PROVIDER_URL = "https://api.devnet.solana.com";
 // Change devnet to mainnet-beta
-// process.env.ANCHOR_PROVIDER_URL = "https://api.mainnet-beta.solana.com";
+process.env.ANCHOR_PROVIDER_URL = "https://mainnet.helius-rpc.com/?api-key=068182b0-c7ae-497a-821f-88c78e1b1bd7";
 process.env.ANCHOR_WALLET = path.join(__dirname, "..", "deploy-wallet.json");
 
 async function main() {
   try {
     // Check if wallet exists, create if it doesn't
-    if (!fs.existsSync(path.join(__dirname, '..', 'deploy-wallet.json'))) {
-      console.log('Creating new deploy wallet...');
-      execSync('solana-keygen new --no-bip39-passphrase -o deploy-wallet.json', { stdio: 'inherit' });
+    // if (!fs.existsSync(path.join(__dirname, '..', 'deploy-wallet.json'))) {
+    //   console.log('Creating new deploy wallet...');
+    //   execSync('solana-keygen new --no-bip39-passphrase -o deploy-wallet.json', { stdio: 'inherit' });
       
-      // Configure local CLI to use this wallet
-      execSync('solana config set --keypair deploy-wallet.json', { stdio: 'inherit' });
+    //   // Configure local CLI to use this wallet
+    //   execSync('solana config set --keypair deploy-wallet.json', { stdio: 'inherit' });
       
-      // Switch to devnet
-      execSync('solana config set --url devnet', { stdio: 'inherit' });
+    //   // Switch to devnet
+    //   execSync('solana config set --url devnet', { stdio: 'inherit' });
       
-      // Airdrop some SOL for deployment
-      execSync('solana airdrop 2', { stdio: 'inherit' });
-      console.log('Wallet created and funded on devnet');
-    }
+    //   // Airdrop some SOL for deployment
+    //   execSync('solana airdrop 2', { stdio: 'inherit' });
+    //   console.log('Wallet created and funded on devnet');
+    // }
 
     // Build the program and wait for completion
-    console.log('Building program...');
-    execSync('anchor build', { stdio: 'inherit' });
+
+    // console.log('Building program...');
+    // execSync('anchor build', { stdio: 'inherit' });
 
     // Wait for file to exist (max 30 seconds)
     const idlPath = path.join(__dirname, '..', 'target', 'idl', `${PROGRAM_NAME}.json`);
@@ -56,8 +57,8 @@ async function main() {
     console.log(`Program ID saved to ${PROGRAM_ID_PATH}`);
 
     // Deploy the program
-    console.log('Deploying program to devnet...');
-    execSync('anchor deploy', { stdio: 'inherit' });
+    // console.log('Deploying program to devnet...');
+    // execSync('anchor deploy', { stdio: 'inherit' });
 
     // Initialize the jungle
     console.log('Initializing jungle...');

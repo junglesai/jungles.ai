@@ -11,7 +11,7 @@ dotenv.config();
 // Set all required environment variables
 process.env.ANCHOR_PROVIDER_URL = process.env.NODE_ENV === 'production' 
   ? process.env.SOLANA_MAINNET_RPC_URL! 
-  : process.env.SOLANA_DEVNET_RPC_URL!;
+  : process.env.SOLANA_MAINNET_RPC_URL!;
 
 const walletPath = path.join(__dirname, '..', 'deploy-wallet.json');
 const wallet = Keypair.fromSecretKey(new Uint8Array(JSON.parse(fs.readFileSync(walletPath, 'utf8'))));

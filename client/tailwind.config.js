@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       colors: {
         yellowgreen: {
+          // 100: "#77E301",
           100: "#C6F300",
           200: "#D6F5C9",
           300: "#B8EDA4",
@@ -18,6 +19,7 @@ module.exports = {
           900: "#111827",
         },
         superyellowgreen: {
+          // 100: "#77E301",
           100: "#BCF549",
         },
         red: {
