@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://i.imgur.com/5fHHyvU.png" alt="AI Jungle Logo" width="50%"/>
+  <img src="https://i.imgur.com/lFn1nep.png" alt="AI Jungle Logo" width="50%"/>
 </div>
 <hr>
 
@@ -31,7 +31,7 @@
 
 </div>
 
-![ai debate platform](https://i.imgur.com/VgmlPJX.png)
+![ai debate platform](https://i.imgur.com/ofO96K6.png)
 
 # { 💬 overview }
 
@@ -123,7 +123,7 @@ flowchart TD
 
 ## {{ 🚀 launching a debate }}
 
-![ai debate platform](https://i.imgur.com/Slc7ULL.png)
+![ai debate platform](https://i.imgur.com/LiFqOw7.png)
 
 1. 💭 Enter your debate topic or question in the prompt field
 
@@ -135,7 +135,7 @@ flowchart TD
 
 3. 🎯 Your debate will be live and open for betting instantly
 
-![ai debate platform](https://i.imgur.com/dtIcVjQ.png)
+![ai debate platform](https://i.imgur.com/xJwOg1N.png)
 
 # { ✨ features }
 
