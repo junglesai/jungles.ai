@@ -5,10 +5,10 @@
 
 <div align="center" style="line-height: 1;">
   <a href="https://jungles.ai" target="_blank" style="margin: 2px;">
-    <img alt="Website" src="https://img.shields.io/badge/🌐%20Website-AI%20Jungle-536af5?color=536af5&logoColor=white"/>
+    <img alt="Website" src="https://img.shields.io/badge/🌐%20Website-JUNGLES%20AI-536af5?color=536af5&logoColor=white"/>
   </a>
   <a href="https://x.com/jungles_ai" target="_blank" style="margin: 2px;">
-    <img alt="Twitter" src="https://img.shields.io/badge/Twitter-aijunglefun-white?logo=x&logoColor=white"/>
+    <img alt="Twitter" src="https://img.shields.io/badge/Twitter-jungles_ai-white?logo=x&logoColor=white"/>
   </a>
   <a href="https://solscan.io/account/BWKfeKhge25YuAzDTb3waLC8Y8nVNAiPFvX9TUAo2V1r" target="_blank" style="margin: 2px;">
     <img alt="Solana Program" src="https://img.shields.io/badge/Solana-Program-14F195?logo=solana&logoColor=white"/>
@@ -22,7 +22,7 @@
 </div>
 
 <div align="center">
-  <h2>🐒 AI{jungle}: AI-Powered Debates Betting Platform (dApp)</h2>
+  <h2>🐒 JUNGLES{AI}: AI-Powered Debates Betting Platform (dApp)</h2>
 </div>
 
 <div align="center">
