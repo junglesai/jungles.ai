@@ -64,9 +64,9 @@ export const initializeDebateOnChain = async (
       }).compileToV0Message();
 
       const transaction = new VersionedTransaction(message);
-      transaction.sign([debateKeypair]);
 
       const provider = getProvider();
+      // transaction.sign([debateKeypair]);
       const { signature } = await provider.signAndSendTransaction(transaction);
 
       await connection.confirmTransaction({
