@@ -41,6 +41,8 @@ const LaunchModal: React.FC<LaunchModalProps> = ({ isOpen, onClose, onSuccess })
   const handleClose = () => {
     setPrompt('');
     setSuccessData(null);
+    setIsSubmitting(false);
+    setToast(null);
     onClose();
   };
 
