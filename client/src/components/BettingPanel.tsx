@@ -8,7 +8,7 @@ import Toast, { ToastType } from './Toast';
 import axios from 'axios';
 import SlotCounter from 'react-slot-counter';
 import AvatarComponent from './Avatar';
-
+import { getProvider } from '../utils/phantom';
 interface Props {
   debateId: string;
   agents: Array<{ _id: string; name: string; stance: string }>;
@@ -215,7 +215,8 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools,
 
       const transaction = new VersionedTransaction(message);
 
-      const signature = await sendTransaction(transaction, connection);
+      const provider = getProvider();
+      const signature = await provider.signAndSendTransaction(transaction);
       await axios.post(`/api/debates/${debateId}/update-pool`);
       setToast({ message: 'Bet placed successfully!', type: 'success' });
       const newBetAmounts = [...betAmounts];
@@ -294,7 +295,8 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools,
 
       const transaction = new VersionedTransaction(message);
 
-      const signature = await sendTransaction(transaction, connection);
+      const provider = getProvider();
+      const signature = await provider.signAndSendTransaction(transaction);
       await axios.post(`/api/debates/${debateId}/update-pool`);
 
       setToast({ message: 'Bet withdrawn successfully!', type: 'success' });

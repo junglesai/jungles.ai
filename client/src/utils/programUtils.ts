@@ -8,6 +8,7 @@ import {
   TransactionInstruction 
 } from '@solana/web3.js';
 import { sha256 } from 'js-sha256';
+import { getProvider } from './phantom'; 
 
 export const PROGRAM_ID = new PublicKey(import.meta.env.VITE_SOLANA_PROGRAM_ID);
 
@@ -65,7 +66,9 @@ export const initializeDebateOnChain = async (
       const transaction = new VersionedTransaction(message);
       transaction.sign([debateKeypair]);
 
-      const signature = await sendTransaction(transaction, connection);
+      const provider = getProvider();
+      const { signature } = await provider.signAndSendTransaction(transaction);
+
       await connection.confirmTransaction({
         signature,
         blockhash,

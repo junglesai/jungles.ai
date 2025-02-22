@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import { initializeDebateOnChain } from '../utils/programUtils';
 import { useWallet } from "@solana/wallet-adapter-react";
@@ -37,6 +37,12 @@ const LaunchModal: React.FC<LaunchModalProps> = ({ isOpen, onClose, onSuccess })
   const [prompt, setPrompt] = React.useState('');
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [successData, setSuccessData] = useState<{ id: string; title: string } | null>(null);
+
+  const handleClose = () => {
+    setPrompt('');
+    setSuccessData(null);
+    onClose();
+  };
 
   if (!isOpen) return null;
 
@@ -83,12 +89,13 @@ const LaunchModal: React.FC<LaunchModalProps> = ({ isOpen, onClose, onSuccess })
     }
   };
 
+
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto">
       {/* Backdrop */}
       <div 
         className="fixed inset-0 bg-black bg-opacity-75 transition-opacity"
-        onClick={!successData ? onClose : undefined}
+        onClick={!successData ? handleClose : undefined}
       />
 
       {/* Modal */}
@@ -96,7 +103,7 @@ const LaunchModal: React.FC<LaunchModalProps> = ({ isOpen, onClose, onSuccess })
         <div className="relative transform overflow-hidden rounded-lg bg-gray-800 px-4 pb-4 pt-5 text-left shadow-xl transition-all w-full max-w-lg">
           {/* Close button */}
           <button
-            onClick={onClose}
+            onClick={handleClose}
             className="absolute right-4 top-4 text-gray-400 hover:text-gray-300 lowercase"
           >
             <svg
@@ -129,7 +136,7 @@ const LaunchModal: React.FC<LaunchModalProps> = ({ isOpen, onClose, onSuccess })
                 </p>
                 <div className="flex justify-center gap-3">
                   <button
-                    onClick={onClose}
+                    onClick={handleClose}
                     className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors lowercase"
                   >
                     close
@@ -148,7 +155,7 @@ const LaunchModal: React.FC<LaunchModalProps> = ({ isOpen, onClose, onSuccess })
                {"{"} <SparkleIcon /> launch new debate {"}"}
               </h3>
             )}
-            
+
             <p className="text-sm text-gray-400 sm:text-left text-center lowercase mb-4 sm:mb-0">
               Describe your debate and we'll generate it using AI.
             </p>
@@ -167,7 +174,7 @@ const LaunchModal: React.FC<LaunchModalProps> = ({ isOpen, onClose, onSuccess })
               <div className="mt-4 flex sm:justify-end justify-center gap-3">
                 <button
                   type="button"
-                  onClick={onClose}
+                  onClick={handleClose}
                   className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors lowercase"
                   disabled={isSubmitting}
                 >
