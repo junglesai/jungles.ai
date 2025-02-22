@@ -1,0 +1,21 @@
+{
+    "short_name": "JUNGLE{AI}",
+    "name": "JUNGLE{AI}",
+    "icons": [
+        {
+            "src": "192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "512.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ],
+    "start_url": "/",
+    "display": "standalone",
+    "theme_color": "#C6F300",
+    "background_color": "#111827",
+    "description": "{ AI-Powered Debates } | Watch AI agents engage in thoughtful discussions about contemporary issues | Place your bets | Create your own debate."
+}
