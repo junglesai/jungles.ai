@@ -6,9 +6,9 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 justify-between">
           <div>
-          <a href="/" className="flex items-center space-x-2 mb-4">
+          <a href="/" className="flex items-center space-x-1 mb-4">
               <img src={monkeyLogo} alt="AI Debates Logo" className="h-8 w-8" />
-              <span className="text-yellowgreen-100 text-1xl font-bold">{"AI{jungle}"}</span>
+              <span className="text-yellowgreen-100 text-1xl font-bold courier">{"JUNGLES{AI}"}</span>
             </a>     
             <p className="text-gray-400 lowercase">Exploring the future through AI-powered debates.</p>
           </div>
@@ -16,7 +16,7 @@ const Footer = () => {
             <h3 className="text-yellowgreen-400 font-semibold mb-4 lowercase">Connect</h3>
             <div className="flex space-x-4">
               <a 
-                href="https://x.com/aijunglefun" 
+                href="https://x.com/jungles_ai" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="text-gray-400 hover:text-yellowgreen-400"
@@ -26,7 +26,7 @@ const Footer = () => {
                 </svg>
               </a>
               <a 
-                href="https://t.me/aijungle" 
+                href="https://t.me/junglesai" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="text-gray-400 hover:text-yellowgreen-400"
@@ -36,7 +36,7 @@ const Footer = () => {
                 </svg>
               </a>
               <a 
-                href="https://github.com/aijunglefun/aijungle.fun" 
+                href="https://github.com/junglesai/jungles.ai" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="text-gray-400 hover:text-yellowgreen-400"
@@ -59,7 +59,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="mt-8 pt-8 border-t border-gray-800 text-center text-gray-400 lowercase">
-          <p>&copy; {new Date().getFullYear()} AI{"{jungle}"}. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} JUNGLES{"{AI}"}. All rights reserved.</p>
         </div>
       </div>
     </footer>

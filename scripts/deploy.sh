@@ -27,6 +27,6 @@ read commit_msg
 git commit -m "$commit_msg"
 
 # Push to GitHub using token from environment
-git push "https://oauth2:$GITHUB_TOKEN@github.com/aijunglefun/aijungle.fun.git" $BRANCH
+git push "https://oauth2:$GITHUB_TOKEN@github.com/junglesai/jungles.ai.git" $BRANCH
 
 echo -e "${GREEN}Deployment complete!${NC}" 

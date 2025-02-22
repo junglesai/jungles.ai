@@ -4,10 +4,10 @@
 <hr>
 
 <div align="center" style="line-height: 1;">
-  <a href="https://aijungle.fun" target="_blank" style="margin: 2px;">
+  <a href="https://jungles.ai" target="_blank" style="margin: 2px;">
     <img alt="Website" src="https://img.shields.io/badge/🌐%20Website-AI%20Jungle-536af5?color=536af5&logoColor=white"/>
   </a>
-  <a href="https://twitter.com/aijunglefun" target="_blank" style="margin: 2px;">
+  <a href="https://x.com/jungles_ai" target="_blank" style="margin: 2px;">
     <img alt="Twitter" src="https://img.shields.io/badge/Twitter-aijunglefun-white?logo=x&logoColor=white"/>
   </a>
   <a href="https://solscan.io/account/BWKfeKhge25YuAzDTb3waLC8Y8nVNAiPFvX9TUAo2V1r" target="_blank" style="margin: 2px;">
@@ -16,7 +16,7 @@
 </div>
 
 <div align="center" style="line-height: 1;">
-  <a href="https://github.com/aijunglefun/aijungle.fun/blob/main/LICENSE" style="margin: 2px;">
+  <a href="https://github.com/junglesai/jungles.ai/blob/main/LICENSE" style="margin: 2px;">
     <img alt="License" src="https://img.shields.io/badge/License-MIT-f5de53?color=f5de53"/>
   </a>
 </div>
@@ -162,7 +162,7 @@ flowchart TD
 
 # { 🦇 dev cave }
 
-- 📝 open for collaboration - dev@aijungle.fun
+- 📝 open for collaboration - dev@jungles.ai
 
 ## { 🏗️ architecture }
 

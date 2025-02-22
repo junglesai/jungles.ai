@@ -18,6 +18,6 @@ BRANCH=$(git rev-parse --abbrev-ref HEAD)
 echo -e "${GREEN}Pulling latest changes from GitHub...${NC}"
 
 # Pull latest changes using token
-git pull "https://oauth2:$GITHUB_TOKEN@github.com/aijunglefun/aijungle.fun.git" $BRANCH
+git pull "https://oauth2:$GITHUB_TOKEN@github.com/junglesai/jungles.ai.git" $BRANCH
 
 echo -e "${GREEN}Pull complete!${NC}" 

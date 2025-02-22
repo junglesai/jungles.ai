@@ -18,9 +18,9 @@ const Header = ({ ownedDebates }: { ownedDebates: Array<any> }) => {
       <nav className="max-w-7xl mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           <div className="flex items-center space-x-4">
-            <a href="/" className="flex items-center space-x-2">
+            <a href="/" className="flex items-center space-x-1">
               <img src={monkeyLogo} alt="AI Debates Logo" className="h-10 w-10 mt-1" />
-              <span className="text-yellowgreen-100 text-2xl font-bold courier">{"AI{jungle}"}</span>
+              <span className="text-yellowgreen-100 text-2xl font-bold courier">{"JUNGLES{AI}"}</span>
             </a>       
             <div className="hidden md:flex items-center space-x-3">
               <span 
@@ -55,7 +55,7 @@ const Header = ({ ownedDebates }: { ownedDebates: Array<any> }) => {
           <div className="hidden md:flex items-center space-x-4">
             {/* Social Media */}
             <a 
-              href="https://x.com/aijunglefun" 
+              href="https://x.com/jungles_ai" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="text-gray-300 hover:text-yellowgreen-400 px-1"
@@ -65,7 +65,7 @@ const Header = ({ ownedDebates }: { ownedDebates: Array<any> }) => {
               </svg>
             </a>
             <a 
-              href="https://t.me/aijungle" 
+              href="https://t.me/junglesai" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="text-gray-300 hover:text-yellowgreen-400 px-1"
@@ -75,7 +75,7 @@ const Header = ({ ownedDebates }: { ownedDebates: Array<any> }) => {
               </svg>
             </a>
             <a 
-              href="https://github.com/aijunglefun/aijungle.fun" 
+              href="https://github.com/junglesai/jungles.ai" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="text-gray-300 hover:text-yellowgreen-400 px-1"
@@ -117,7 +117,7 @@ const Header = ({ ownedDebates }: { ownedDebates: Array<any> }) => {
               {"{ ca: " + ca + " }"}
             </p> } 
             <a 
-              href="https://x.com/aijunglefun" 
+              href="https://x.com/jungles_ai" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="flex items-center text-gray-300 hover:text-yellowgreen-400"
@@ -128,7 +128,7 @@ const Header = ({ ownedDebates }: { ownedDebates: Array<any> }) => {
               Twitter
             </a>
             <a 
-              href="https://t.me/aijungle" 
+              href="https://t.me/junglesai" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="flex items-center text-gray-300 hover:text-yellowgreen-400"
@@ -139,7 +139,7 @@ const Header = ({ ownedDebates }: { ownedDebates: Array<any> }) => {
               Telegram
             </a>
             <a 
-              href="https://github.com/aijunglefun/aijungle.fun" 
+              href="https://github.com/junglesai/jungles.ai" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="flex items-center text-gray-300 hover:text-yellowgreen-400"
