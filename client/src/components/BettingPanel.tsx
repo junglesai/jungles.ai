@@ -206,7 +206,8 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools,
         data,
       });
 
-      const { blockhash } = await connection.getLatestBlockhash();
+      const { blockhash, lastValidBlockHeight } = await connection.getLatestBlockhash();
+
       const message = new TransactionMessage({
         payerKey: publicKey,
         recentBlockhash: blockhash,
@@ -214,9 +215,16 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools,
       }).compileToV0Message();
 
       const transaction = new VersionedTransaction(message);
-
       const provider = getProvider();
-      const signature = await provider.signAndSendTransaction(transaction);
+      const { signature } = await provider.signAndSendTransaction(transaction);
+      setToast({ message: 'Placing bet...', type: 'loading' });
+
+      await connection.confirmTransaction({
+        signature,
+        blockhash,
+        lastValidBlockHeight
+      });
+
       await axios.post(`/api/debates/${debateId}/update-pool`);
       setToast({ message: 'Bet placed successfully!', type: 'success' });
       const newBetAmounts = [...betAmounts];
@@ -279,14 +287,14 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools,
           { pubkey: debateAccount, isSigner: false, isWritable: true },
           { pubkey: userBetAccount, isSigner: false, isWritable: true },
           { pubkey: publicKey, isSigner: true, isWritable: true },
-          { pubkey: authority, isSigner: false, isWritable: true }, // Ensure correct authority
+          { pubkey: new PublicKey(debate.deployer), isSigner: false, isWritable: true },
           { pubkey: SystemProgram.programId, isSigner: false, isWritable: false },
         ],
         programId: PROGRAM_ID,
         data,
       });
 
-      const { blockhash } = await connection.getLatestBlockhash();
+      const { blockhash, lastValidBlockHeight } = await connection.getLatestBlockhash();
       const message = new TransactionMessage({
         payerKey: publicKey,
         recentBlockhash: blockhash,
@@ -294,9 +302,18 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools,
       }).compileToV0Message();
 
       const transaction = new VersionedTransaction(message);
-
       const provider = getProvider();
-      const signature = await provider.signAndSendTransaction(transaction);
+
+
+      const { signature } = await provider.signAndSendTransaction(transaction);
+      setToast({ message: 'Pulling bet...', type: 'loading' });
+
+      await connection.confirmTransaction({
+        signature,
+        blockhash,
+        lastValidBlockHeight
+      });
+
       await axios.post(`/api/debates/${debateId}/update-pool`);
 
       setToast({ message: 'Bet withdrawn successfully!', type: 'success' });
