@@ -19,7 +19,7 @@ export default defineConfig({
       interval: 100
     },
     hmr: {
-      overlay: true
+      overlay: false
     }
   },
   css: {
