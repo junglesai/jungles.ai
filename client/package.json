@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite"
   },
   "dependencies": {
     "@coral-xyz/anchor": "^0.30.1",

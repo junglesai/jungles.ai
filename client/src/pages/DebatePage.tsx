@@ -33,6 +33,7 @@ const DebatePage = () => {
     
     try { 
       const mode = import.meta.env.VITE_MODE;
+      console.log(mode)
       const connection = new Connection(mode === 'dev' ? import.meta.env.VITE_SOLANA_DEVNET_RPC_URL : import.meta.env.VITE_SOLANA_MAINNET_RPC_URL);
       const debateAccount = new PublicKey(debate.solanaAddress);
       const accountInfo = await connection.getAccountInfo(debateAccount);
