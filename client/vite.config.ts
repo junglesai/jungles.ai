@@ -12,8 +12,8 @@ export default defineConfig({
     }
   },
   server: {
-    host: '0.0.0.0',
     port: 5173,
+    host: true,
     watch: {
       usePolling: true,
       interval: 100
@@ -21,6 +21,10 @@ export default defineConfig({
     hmr: {
       overlay: false
     }
+  },
+  preview: {
+    host: true,
+    port: 5173
   },
   css: {
     postcss: './postcss.config.js'

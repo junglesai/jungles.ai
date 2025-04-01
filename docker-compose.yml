@@ -49,6 +49,7 @@ services:
       - VITE_MODE=${VITE_MODE}
     depends_on:
       - server
+    command: npm run preview
 
   nginx:
     image: nginx:alpine
