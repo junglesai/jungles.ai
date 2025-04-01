@@ -24,7 +24,7 @@ export default defineConfig({
   },
   preview: {
     host: true,
-    port: 5173
+    port: 5173,
   },
   css: {
     postcss: './postcss.config.js'
@@ -41,8 +41,9 @@ export default defineConfig({
       ]
     }
   },
-  define: {
-    'global': {},
-    'process.env': {}
-  }
+  define:  process.env.NODE_ENV === "development"
+  ? {
+      global: {},
+    }
+  : undefined
 });
