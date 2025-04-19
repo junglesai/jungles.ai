@@ -35,7 +35,7 @@ interface UserPosition {
 
 const PROGRAM_ID = new PublicKey(import.meta.env.VITE_SOLANA_PROGRAM_ID);
 
-const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools, verdict }) => {
+const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools, verdict, onPoolsUpdate, setPoolSize, setAgentPools }) => {
   const { connected, publicKey, sendTransaction } = useWallet();
   const [poolInfo, setPoolInfo] = useState<{
     agent1Pool: number;
@@ -225,7 +225,17 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools,
         lastValidBlockHeight
       });
 
+      // Update local pools state immediately
+      const betAmount = parseFloat(amount) * LAMPORTS_PER_SOL;
+      const newAgentPools = [...agentPools];
+      newAgentPools[agentIndex] += betAmount;
+      setAgentPools(newAgentPools as [number, number]);
+      setPoolSize(newAgentPools[0] + newAgentPools[1]);
+      
+      // Still update the backend and fetch latest pools
       await axios.post(`/api/debates/${debateId}/update-pool`);
+      onPoolsUpdate(); // Call to fetch latest state
+      
       setToast({ message: 'Bet placed successfully!', type: 'success' });
       const newBetAmounts = [...betAmounts];
       newBetAmounts[agentIndex] = '';
@@ -314,8 +324,17 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools,
         lastValidBlockHeight
       });
 
+      // Update local pools state immediately
+      const pullAmount = parseFloat(amount) * LAMPORTS_PER_SOL;
+      const newAgentPools = [...agentPools];
+      newAgentPools[agentIndex] -= pullAmount;
+      setAgentPools(newAgentPools as [number, number]);
+      setPoolSize(newAgentPools[0] + newAgentPools[1]);
+      
+      // Still update the backend and fetch latest pools
       await axios.post(`/api/debates/${debateId}/update-pool`);
-
+      onPoolsUpdate(); // Call to fetch latest state
+      
       setToast({ message: 'Bet withdrawn successfully!', type: 'success' });
 
       const newPullAmounts = [...pullAmounts];

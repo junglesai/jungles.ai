@@ -40,7 +40,7 @@ const AgentMessage: React.FC<Props> = ({ message, isFirstAgent, agents }) => {
           </div>
           <div className="flex items-center gap-3">
             {message.status === 'typing' ? (
-              <CircleCountdown duration={parseInt(process.env.VITE_DEBATE_DELAY || '10000')} isFirstAgent={isFirstAgent} />
+              <CircleCountdown duration={parseInt(import.meta.env.VITE_DEBATE_DELAY || '10000')} isFirstAgent={isFirstAgent} />
             ) : (
               <div className="text-sm text-gray-400">
                 {message.timestamp.toLocaleTimeString()}
@@ -55,7 +55,7 @@ const AgentMessage: React.FC<Props> = ({ message, isFirstAgent, agents }) => {
             <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce delay-200" />
           </div>
         ) : (
-          <div className="text-white whitespace-pre-wrap">{message.content}</div>
+          <div className="text-white whitespace-pre-wrap font-size-12">{message.content}</div>
         )}
       </div>
       {!isFirstAgent && (
