@@ -20,6 +20,9 @@ interface Props {
   setPoolSize: (size: number) => void;
   setAgentPools: (pools: [number, number]) => void;
   verdict: any;
+  hideUserPosition?: boolean;
+  onUpdateUserPosition?: (position: UserPosition) => void;
+  userPosition?: UserPosition | null;
 }
 
 interface UserPosition {
@@ -35,7 +38,21 @@ interface UserPosition {
 
 const PROGRAM_ID = new PublicKey(import.meta.env.VITE_SOLANA_PROGRAM_ID);
 
-const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools, verdict, onPoolsUpdate, setPoolSize, setAgentPools }) => {
+const BettingPanel: React.FC<Props> = ({ 
+  debateId, 
+  agents, 
+  status, 
+  onPoolsUpdate, 
+  poolSize, 
+  isPoolUpdated, 
+  agentPools, 
+  setPoolSize, 
+  setAgentPools, 
+  verdict,
+  hideUserPosition = false,
+  onUpdateUserPosition,
+  userPosition: externalUserPosition
+}) => {
   const { connected, publicKey, sendTransaction } = useWallet();
   const [poolInfo, setPoolInfo] = useState<{
     agent1Pool: number;
@@ -45,7 +62,7 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools,
   const [betAmounts, setBetAmounts] = useState<[string, string]>(['', '']);
   const [pullAmounts, setPullAmounts] = useState<[string, string]>(['', '']);
   const [toast, setToast] = useState<{ message: string; type: ToastType } | null>(null);
-  const [userPosition, setUserPosition] = useState<UserPosition>({
+  const [internalUserPosition, setInternalUserPosition] = useState<UserPosition>({
     amountOnA: 0,
     amountOnB: 0,
     totalInvested: 0,
@@ -55,7 +72,7 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools,
     },
     currentPullable: 0,
   });
-  
+
   const mode = import.meta.env.VITE_MODE;
   const connection = new Connection(mode === 'dev' ? import.meta.env.VITE_SOLANA_DEVNET_RPC_URL : import.meta.env.VITE_SOLANA_MAINNET_RPC_URL);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
@@ -144,7 +161,7 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools,
         }
 
         
-        setUserPosition({
+        setInternalUserPosition({
         amountOnA,
         amountOnB,
         totalInvested,
@@ -154,6 +171,19 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools,
         },
         currentPullable: winner && winningAmount ? Math.floor(Number(winningAmount)) : totalInvested
       });
+      
+      if (onUpdateUserPosition) {
+        onUpdateUserPosition({
+          amountOnA,
+          amountOnB,
+          totalInvested,
+          potentialReturns: {
+            ifAgent1Wins: Math.floor(Number(potentialIfAWins)),
+            ifAgent2Wins: Math.floor(Number(potentialIfBWins))
+          },
+          currentPullable: winner && winningAmount ? Math.floor(Number(winningAmount)) : totalInvested
+        });
+      }
     } catch (error) {
       console.error('Error calculating position:', error);
     }
@@ -370,6 +400,15 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools,
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  useEffect(() => {
+    if (onUpdateUserPosition && externalUserPosition) {
+      onUpdateUserPosition(externalUserPosition);
+    }
+  }, [externalUserPosition, onUpdateUserPosition]);
+
+  // Use external user position if provided, otherwise use internal
+  const displayUserPosition = externalUserPosition || internalUserPosition;
+
   return (
     <div className="px-0 py-0 border-gray-700">
       <div className="flex justify-between items-center mb-4 border-gray-700 pb-4 bg-gray-800 p-4 rounded-lg shadow-xl">
@@ -401,7 +440,7 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools,
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-1">
                 <AvatarComponent seed={agent._id} hideOnMobile={true} />
-                <div className="text-white font-medium">{"{"} {agent.name} {"}"}</div>
+                <div className="text-white font-medium text-sm">{"{"} {agent.name} {"}"}</div>
               </div>
               <div className="text-sm bg-gray-600 px-3 py-1 rounded-full">
                 {"{"} {(index === 0 ? agentPools[0] / LAMPORTS_PER_SOL : agentPools[1] / LAMPORTS_PER_SOL).toFixed(2)} SOL {"}"}
@@ -462,77 +501,86 @@ const BettingPanel: React.FC<Props> = ({ debateId, agents, poolSize, agentPools,
         )}
       </div>
 
-      {/* User Position Panel */}
-      {connected && userPosition.totalInvested > 0 && (
+      {/* User Position Panel - Only on mobile */}
+      {!hideUserPosition && connected && displayUserPosition && displayUserPosition.totalInvested > 0 && (
         <div className="mt-6 bg-gray-800 rounded-lg p-4">
           <h3 className="text-yellowgreen-400 font-medium mb-3 lowercase">{"{"} Your Position {"}"}</h3>
           
-          <div className="space-y-2">
-          <div className="flex justify-between text-sm">  
-              <span className="text-gray-400">{"{{"} {agents[0].name} {"}}"}</span>
-              <span className="text-white">
-                {(userPosition.amountOnA / LAMPORTS_PER_SOL).toFixed(2)} SOL
-              </span>
+          <div className="space-y-3">
+            <div className="grid grid-cols-2 gap-2">
+              <div className="flex flex-col">  
+                <span className="text-gray-400 text-sm">{"{{"} {agents[0].name} {"}}"}</span>
+                <span className="text-white">
+                  {(displayUserPosition.amountOnA / LAMPORTS_PER_SOL).toFixed(2)} SOL
+                </span>
+              </div>
+
+              <div className="flex flex-col">  
+                <span className="text-gray-400 text-sm">{"{{"} {agents[1].name} {"}}"}</span>
+                <span className="text-white">
+                  {(displayUserPosition.amountOnB / LAMPORTS_PER_SOL).toFixed(2)} SOL
+                </span>
+              </div>
             </div>
 
-            <div className="flex justify-between text-sm">  
-              <span className="text-gray-400">{"{{"} {agents[1].name} {"}}"}</span>
-              <span className="text-white">
-                {(userPosition.amountOnB / LAMPORTS_PER_SOL).toFixed(2)} SOL
-              </span>
+            <div className="grid grid-cols-2 gap-2">
+              <div className="flex flex-col">  
+                <span className="text-gray-400 text-sm lowercase">{"{{"} Total Invested {"}}"}</span>
+                <span className="text-white">
+                  {(displayUserPosition.totalInvested / LAMPORTS_PER_SOL).toFixed(2)} SOL
+                </span>
+              </div>
+
+              <div className="flex flex-col">
+                <span className="text-gray-400 text-sm lowercase">{"{{"} Current Pullable {"}}"}</span>
+                <span className="text-white">
+                  {Math.floor(displayUserPosition.currentPullable / LAMPORTS_PER_SOL * 100) / 100} SOL
+                </span>
+              </div>
             </div>
-
-            <div className="flex justify-between text-sm lowercase">  
-              <span className="text-gray-400">{"{{"} Total Invested {"}}"}</span>
-              <span className="text-white">
-                {(userPosition.totalInvested / LAMPORTS_PER_SOL).toFixed(2)} SOL
-              </span>
-            </div>
-
-            <div className="flex justify-between text-sm lowercase">
-              <span className="text-gray-400">{"{{"} Current Pullable {"}}"}</span>
-              <span className="text-white">
-              {Math.floor(userPosition.currentPullable / LAMPORTS_PER_SOL * 100) / 100} SOL
-              </span>
-            </div>
-
-            <div className="border-t border-gray-700 my-2"></div>
-
-            <div className="text-sm text-gray-400 mb-1 lowercase">{"{{"} Potential Returns {"}}"}</div>
             
-            <div className="flex justify-between text-sm">
-              <span className={`${userPosition.potentialReturns.ifAgent1Wins > userPosition.totalInvested ? 'text-yellowgreen-400' : 'text-red-400'} ${verdict?.winner && verdict.winner.toLowerCase() !== agents[0].name.toLowerCase() ? 'line-through' : ''}`}>
-                {agents[0].name} {verdict?.winner && verdict.winner.toLowerCase() === agents[0].name.toLowerCase() ? '👑' : "wins:"}
-              </span>
-              <div className={`flex items-center gap-2 ${verdict?.winner && verdict.winner.toLowerCase() !== agents[0].name.toLowerCase() ? 'line-through' : ''}`}>
-                <span className="text-white">
-                {Math.floor(userPosition.potentialReturns.ifAgent1Wins / LAMPORTS_PER_SOL * 10000) / 10000} SOL
-                </span>
-                <span className={`text-xs ${userPosition.potentialReturns.ifAgent1Wins > userPosition.totalInvested ? 'text-green-400' : 'text-red-400'}`}>
-                ({Math.floor((userPosition.potentialReturns.ifAgent1Wins / userPosition.totalInvested - 1) * 1000) / 10}%)
-                </span>
+            <div className="border-t border-gray-700 my-2"></div>
+            
+            <div>
+              <h3 className="text-yellowgreen-400 text-base font-medium mb-3 lowercase">{"{{"} Potential Returns {"}}"}</h3>
+              
+              <div className="space-y-3">
+                <div className="bg-gray-700/50 rounded-lg p-3">
+                  <div className="flex justify-between items-center mb-1">
+                    <span className={`font-medium ${verdict?.winner && verdict.winner.toLowerCase() === agents[0].name.toLowerCase() ? 'text-yellowgreen-400' : ''}`}>
+                      {agents[0].name} {verdict?.winner && verdict.winner.toLowerCase() === agents[0].name.toLowerCase() ? '👑' : "wins"}
+                    </span>
+                    <span className={`text-xs px-2 py-0.5 rounded ${displayUserPosition.potentialReturns.ifAgent1Wins > displayUserPosition.totalInvested ? 'bg-green-900/50 text-green-400' : 'bg-red-900/50 text-red-400'}`}>
+                      {Math.floor((displayUserPosition.potentialReturns.ifAgent1Wins / displayUserPosition.totalInvested - 1) * 100)}%
+                    </span>
+                  </div>
+                  <div className={`text-right font-mono text-lg ${verdict?.winner && verdict.winner.toLowerCase() !== agents[0].name.toLowerCase() ? 'line-through text-gray-500' : 'text-white'}`}>
+                    {Math.floor(displayUserPosition.potentialReturns.ifAgent1Wins / LAMPORTS_PER_SOL * 10000) / 10000} SOL
+                  </div>
+                </div>
+
+                <div className="bg-gray-700/50 rounded-lg p-3">
+                  <div className="flex justify-between items-center mb-1">
+                    <span className={`font-medium ${verdict?.winner && verdict.winner.toLowerCase() === agents[1].name.toLowerCase() ? 'text-yellowgreen-400' : ''}`}>
+                      {agents[1].name} {verdict?.winner && verdict.winner.toLowerCase() === agents[1].name.toLowerCase() ? '👑' : "wins"}
+                    </span>
+                    <span className={`text-xs px-2 py-0.5 rounded ${displayUserPosition.potentialReturns.ifAgent2Wins > displayUserPosition.totalInvested ? 'bg-green-900/50 text-green-400' : 'bg-red-900/50 text-red-400'}`}>
+                      {Math.floor((displayUserPosition.potentialReturns.ifAgent2Wins / displayUserPosition.totalInvested - 1) * 100)}%
+                    </span>
+                  </div>
+                  <div className={`text-right font-mono text-lg ${verdict?.winner && verdict.winner.toLowerCase() !== agents[1].name.toLowerCase() ? 'line-through text-gray-500' : 'text-white'}`}>
+                    {Math.floor(displayUserPosition.potentialReturns.ifAgent2Wins / LAMPORTS_PER_SOL * 10000) / 10000} SOL
+                  </div>
+                </div>
               </div>
             </div>
-
-            <div className="flex justify-between text-sm">
-              <span className={`${userPosition.potentialReturns.ifAgent2Wins > userPosition.totalInvested ? 'text-yellowgreen-400' : 'text-red-400'} ${verdict?.winner && verdict.winner.toLowerCase() !== agents[1].name.toLowerCase() ? 'line-through' : ''}`}>
-                {agents[1].name} {verdict?.winner && verdict.winner.toLowerCase() === agents[1].name.toLowerCase() ? '👑' : "wins:"}
-              </span>
-              <div className={`flex items-center gap-2 ${verdict?.winner && verdict.winner.toLowerCase() !== agents[1].name.toLowerCase() ? 'line-through' : ''}`}>
-                <span className="text-white">
-                {Math.floor(userPosition.potentialReturns.ifAgent2Wins / LAMPORTS_PER_SOL * 10000) / 10000} SOL
-                </span>
-                <span className={`text-xs ${userPosition.potentialReturns.ifAgent2Wins > userPosition.totalInvested ? 'text-green-400' : 'text-red-400'}`}>
-                ({Math.floor((userPosition.potentialReturns.ifAgent2Wins / userPosition.totalInvested - 1) * 1000) / 10}%)
-                </span>
-              </div>
+            
+            <div className="text-right mt-1">
+              <span className="text-gray-400 text-xs">{"{{"} 1% fee will be sent to debate creator {"}}"}</span>
             </div>
           </div>
-          <br/>
-          <span className="text-gray-400 text-xs">{"{{"} 1% fee will be sent to debate creator {"}}"}</span>
         </div>
       )}
-
 
       {toast && (
         <Toast

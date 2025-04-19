@@ -55,7 +55,7 @@ const AgentMessage: React.FC<Props> = ({ message, isFirstAgent, agents }) => {
             <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce delay-200" />
           </div>
         ) : (
-          <div className="text-white whitespace-pre-wrap font-size-12">{message.content}</div>
+          <div className="text-white whitespace-pre-wrap text-sm">{message.content}</div>
         )}
       </div>
       {!isFirstAgent && (
