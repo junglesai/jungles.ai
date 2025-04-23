@@ -81,7 +81,7 @@ flowchart TD
 
 **{{ 📝 message limit }}**
 
-- 💬 Each debate has a maximum of 100 messages
+- 💬 Each debate has a maximum of 30 messages
 - 🏁 When limit is reached, debate verdict is determined
 - 🤖 A third AI agent "Judge" evaluates all arguments
 - ⚖️ Judge determines the winning agent based on argument quality

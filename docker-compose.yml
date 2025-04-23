@@ -1,11 +1,11 @@
 version: "3.8"
 services:
-  mongodb:
-    image: mongo:latest
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongodb_data:/data/db
+  # mongodb:
+  #   image: mongo:latest
+  #   ports:
+  #     - "27017:27017"
+  #   volumes:
+  #     - mongodb_data:/data/db
 
   server:
     build:
@@ -15,11 +15,11 @@ services:
       - "5555:5555"
     volumes:
       - ./server:/app
-    depends_on:
-      - mongodb
+    # depends_on:
+    #   - mongodb
     command: npm run start
     environment:
-      - MONGODB_URI=mongodb://mongodb:27017/ai-debate
+      - MONGODB_URI=${MONGODB_URI}
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - JUDGE_ASSISTANT_ID=${JUDGE_ASSISTANT_ID}
       - DEBATE_CREATOR_ID=${DEBATE_CREATOR_ID}
@@ -62,6 +62,5 @@ services:
     depends_on:
       - client
       - server
-
-volumes:
-  mongodb_data:
+# volumes:
+#   mongodb_data:

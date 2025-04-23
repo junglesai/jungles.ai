@@ -89,7 +89,7 @@ const debateSchema = new mongoose.Schema({
       validator: (v: number) => v % 2 === 0 && v > 0,
       message: 'Message limit must be a positive even number'
     },
-    default: 100
+    default: 30
   },
   verdict: {
     winner: String,
