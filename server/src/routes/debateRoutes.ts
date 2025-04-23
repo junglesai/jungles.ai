@@ -175,6 +175,7 @@ router.post('/create', async (req: Request, res: Response) => {
       deployer: savedDebate.deployer
     });
     } catch (error) {
+      console.log(error)
     res.status(500).json({ message: error });
   }
 });
@@ -217,6 +218,7 @@ router.post('/:id/update-pool', async (req: Request, res: Response) => {
     });
 
   } catch (error) {
+    console.log(process.env.NODE_ENV)
     console.error('Error updating pool:', error);
     res.status(500).json({ message: 'Error updating pool size' });
   }
